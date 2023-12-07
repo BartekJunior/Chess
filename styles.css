@@ -6,11 +6,11 @@
 }
 
 .test {
-    height: 200px;
-    background-color: rgb(78, 58, 134);
-    border-width: 3px;
-    border-color: red;
+  height: 200px;
+  background-color: rgb(78, 58, 134);
+  border-width: 3px;
+  border-color: red;
+  color: white;
   text-align: center;
 }
-
 
