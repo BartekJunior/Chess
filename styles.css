@@ -1,0 +1,16 @@
+.first {
+  margin: 0 auto;
+  width: 300px;
+  height: 100px;
+  background-color: brown;
+}
+
+.test {
+    height: 200px;
+    background-color: rgb(78, 58, 134);
+    border-width: 3px;
+    border-color: red;
+  text-align: center;
+}
+
+
