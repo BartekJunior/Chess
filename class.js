@@ -15,11 +15,25 @@ class Figure {
       if (this.color === `white`) figure.classList.add(`white`);
 
       hexAll[place].appendChild(figure);
+      figure.addEventListener(`click`, function () {
+        console.log(this, `this is <I>`);
+        
+      })
     };
+
+    Figure.prototype.possibleMove = function (type) {
+      if (type === `pawn`) {
+
+      }
+    }
 
     this.drawStartFigure(this.type);
   }
 }
+
+
+
+
 
 
 

@@ -3,9 +3,7 @@
 const squareNode = document.querySelectorAll(`.square`);
 const hexAll = Array.from(squareNode);
 
-console.log(hexAll);
-
-console.log(hexAll[0]);
+// console.log(hexAll);
 
 // Show Clicked square //
 hexAll.forEach((el, index) => {
@@ -76,3 +74,42 @@ hexAll[60].figure = new Figure(`king`, 60, `white`);
 hexAll[61].figure = new Figure(`bishop`, 61, `white`);
 hexAll[62].figure = new Figure(`knight`, 62, `white`);
 hexAll[63].figure = new Figure(`rook`, 63, `white`);
+
+const draggableElement = Array.from(document.querySelectorAll(`.figure`));
+draggableElement.forEach((element) => {
+  element.setAttribute("draggable", true);
+});
+
+let tempFigureData = [];
+
+// Event listener for when dragging starts
+draggableElement.forEach((el, index) => {
+  el.addEventListener("dragstart", function (event) {
+    event.dataTransfer.setData("text/plain", "Drag me!");
+    const figure = el.parentElement.figure;
+    tempFigureData = [figure.type, figure.place, figure.color];
+    console.log(tempFigureData);
+    
+  });
+});
+
+// Event listener for when dragging is over the droppable area
+hexAll.forEach((el, index) => {
+  // Prevent default behavior to enable drop
+  el.addEventListener("dragover", function (event) {
+    event.preventDefault();
+  });
+
+  // Event listener for when the element is dropped
+  el.addEventListener("drop", function (event) {
+    event.preventDefault();
+
+    // Append the new element to the droppable area
+    el.figure = new Figure(tempFigureData[0], index, tempFigureData[2]);
+    tempFigureData = [];
+
+
+
+
+  });
+});

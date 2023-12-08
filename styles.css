@@ -64,7 +64,11 @@ i {
 }
 
 .figure {
+  width: 65px;
+  height: 65px;
+  padding-top: 8%;
   font-size: 50px;
+  text-align: center;
 }
 
 .white {
