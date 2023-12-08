@@ -14,3 +14,51 @@
   text-align: center;
 }
 
+.header {
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.player-container {
+  height: 60px;
+}
+
+#player1, #player2, .h1-header {
+  line-height: 60px;
+}
+
+.board {
+  width: min-content;
+  margin: 30px auto 0;
+
+  display: grid;
+  grid-template-columns: repeat(8, 70px);
+  grid-template-rows: repeat(8, 70px);
+
+  align-content: center;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.square {
+  width: 70px;
+  height: 70px;
+  border: 1px solid rgb(44, 41, 41);
+}
+
+.square:hover {
+  opacity: 0.5;
+}
+
+i {
+  width: 40px;
+  height: 40px;
+  color: black;
+}
+
+#knight {
+  width: 40px;
+  height: 40px;
+}
