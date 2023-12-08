@@ -25,7 +25,9 @@
   height: 60px;
 }
 
-#player1, #player2, .h1-header {
+#player1,
+#player2,
+.h1-header {
   line-height: 60px;
 }
 
@@ -37,14 +39,18 @@
   grid-template-columns: repeat(8, 70px);
   grid-template-rows: repeat(8, 70px);
 
-  align-content: center;
-  justify-content: center;
+  /* justify-content: center; */
+  /* align-content: center; */
   border: 1px solid black;
 }
 
 .square {
   width: 70px;
   height: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid rgb(44, 41, 41);
 }
 
@@ -53,12 +59,20 @@
 }
 
 i {
-  width: 40px;
-  height: 40px;
-  color: black;
+  font-size: 50px;
+  color: rgb(161, 31, 31);
 }
 
-#knight {
-  width: 40px;
-  height: 40px;
+.figure {
+  font-size: 50px;
 }
+
+.white {
+  color: rgb(155, 141, 16);
+}
+
+.black {
+  color: rgb(112, 17, 17);
+}
+
+

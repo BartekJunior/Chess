@@ -1,12 +1,24 @@
 "use strict";
 
 const squareNode = document.querySelectorAll(`.square`);
-const squares = Array.from(squareNode);
+const hexAll = Array.from(squareNode);
 
-console.log(squares);
+console.log(hexAll);
 
+console.log(hexAll[0]);
+
+// Show Clicked square //
+hexAll.forEach((el, index) => {
+  el.addEventListener(`click`, function() {
+    console.log(this, index);
+    console.log(this.figure);
+    
+  })
+})
+
+// Draw all Board //
 const drawWhiteSquare = function () {
-  squares.forEach((el, index) => {
+  hexAll.forEach((el, index) => {
     if (
       (index < 8 ||
         (index >= 16 && index < 24) ||
@@ -25,8 +37,9 @@ const drawWhiteSquare = function () {
       index % 2 === 0
     )
       el.style.backgroundColor = `rgb(70, 70, 70)`;
-
   });
 };
 
 drawWhiteSquare();
+
+
