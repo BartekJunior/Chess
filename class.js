@@ -6,28 +6,21 @@ class Figure {
     this.place = place;
     this.color = color;
 
-    Figure.prototype.drawStartFigure = function (type) {
-      const figure = document.createElement(`i`);
+    this.figureElement = document.createElement('i');
+    this.figureElement.draggable = true;
+    this.figureElement.classList.add('figure', `fa-solid`, `fa-chess-${type}`);
+    if (color === 'black') this.figureElement.classList.add('black');
+    if (color === 'white') this.figureElement.classList.add('white');
 
-      figure.classList.add(`figure`);
-      figure.classList.add(`fa-solid`, `fa-chess-${type}`);
-      if (this.color === `black`) figure.classList.add(`black`);
-      if (this.color === `white`) figure.classList.add(`white`);
+    // Przypisanie instancji Figure jako atrybut elementu <i>
+    this.figureElement.figure = this;
 
-      hexAll[place].appendChild(figure);
-      figure.addEventListener(`click`, function () {
-        console.log(this, `this is <I>`);
-        
-      })
-    };
+    hexAll[place].appendChild(this.figureElement);
 
-    Figure.prototype.possibleMove = function (type) {
-      if (type === `pawn`) {
+    this.figureElement.addEventListener('click', function () {
+      console.log(this.figure, 'this is <I>.figure');
+    });
 
-      }
-    }
-
-    this.drawStartFigure(this.type);
   }
 }
 
