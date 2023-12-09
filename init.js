@@ -8,7 +8,7 @@ const hexAll = Array.from(squareNode);
 // Show Clicked square //
 hexAll.forEach((el, index) => {
   el.addEventListener(`click`, function () {
-    console.log(index, `this is index`);
+    console.log(index, `this is hexAll`);
   });
 });
 
@@ -38,7 +38,6 @@ const drawWhiteSquare = function () {
 drawWhiteSquare();
 
 // DRAW ALL START FIGURES //
-
 new Figure(`rook`, 0, `black`);
 new Figure(`knight`, 1, `black`);
 new Figure(`bishop`, 2, `black`);
@@ -75,44 +74,30 @@ new Figure(`bishop`, 61, `white`);
 new Figure(`knight`, 62, `white`);
 new Figure(`rook`, 63, `white`);
 
-let figures = Array.from(document.querySelectorAll(`.figure`));
-// figures.forEach((element) => {
-//   element.setAttribute("draggable", true);
-// });
-
 let tempFigureData = [];
+let possibleMove = [];
 
-// Event listener for when dragging starts
-figures.forEach((el, index) => {
-  el.addEventListener("dragstart", function (event) {
-    event.dataTransfer.setData("text/plain", "Drag me!");
-    const figure = el.figure;
-    tempFigureData = [figure.type, figure.place, figure.color];
-    console.log(tempFigureData);
-  });
-});
-
-// Event listener for when dragging is over the droppable area
+// DRAG OVER
 hexAll.forEach((el, index) => {
   // Prevent default behavior to enable drop
   el.addEventListener("dragover", function (event) {
     event.preventDefault();
   });
 
-  // Event listener for when the element is dropped
+  // DRAG DROP
   el.addEventListener("drop", function (event) {
     event.preventDefault();
 
-    // Append the new element to the droppable area
-    const newFigure = new Figure(tempFigureData[0], index, tempFigureData[2]);
+    if (el.move) {
+      new Figure(tempFigureData[0], index, tempFigureData[2], false);
+      tempFigureData[3].figure.removeFigure();
+      console.log(`DOBRY RUCH`);
+    }
 
-    // to jest do dupy!!!!!! zmien to!!! //
-    newFigure.addEventListener(`click`, function (event) {
-      const figure = el.figure;
-      tempFigureData = [figure.type, figure.place, figure.color];
-      console.log(tempFigureData);
-    });
-
+    Figure.prototype.hideMove(possibleMove);
+    console.log(`ZLY RUCH`);
     tempFigureData = [];
   });
 });
+
+const figures = document.querySelectorAll(`.figure`);
