@@ -3,7 +3,8 @@
 const squareNode = document.querySelectorAll(`.square`);
 const hexAll = Array.from(squareNode);
 
-// console.log(hexAll);
+const lootPlayer1 = document.querySelector(`.loot-player1-itself`);
+const lootPlayer2 = document.querySelector(`.loot-player2-itself`);
 
 // Show Clicked square //
 hexAll.forEach((el, index) => {
@@ -74,11 +75,7 @@ new Figure(`bishop`, 61, `white`);
 new Figure(`knight`, 62, `white`);
 new Figure(`rook`, 63, `white`);
 
-
 new Figure(`rook`, 27, `white`);
-
-
-
 
 const figures = document.querySelectorAll(`.figure`);
 
@@ -97,6 +94,11 @@ hexAll.forEach((el, index) => {
     event.preventDefault();
 
     if (el.move) {
+      if (el.childElementCount > 0) {
+        Figure.prototype.beat(index)
+        console.log(`This Was a good beat!`);
+      }
+
       new Figure(tempFigureData[0], index, tempFigureData[2], false);
       tempFigureData[3].figure.removeFigure();
       console.log(`DOBRY RUCH`);
@@ -114,7 +116,6 @@ hexAll.forEach((el, index) => {
 
 
 
-
 // DROP OUTSIDE BOARD DROP OUTSIDE BOARDDROP OUTSIDE BOARD //
 window.addEventListener("dragover", function (event) {
   event.preventDefault();
@@ -122,9 +123,8 @@ window.addEventListener("dragover", function (event) {
 
 window.addEventListener("drop", function (event) {
   event.preventDefault();
-  console.log(`ZLY RUCH`);
+  // console.log(`ZLY RUCH`);
   Figure.prototype.hideMove(possibleMove);
   tempFigureData = [];
   possibleMove = [];
 });
-

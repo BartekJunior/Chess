@@ -38,7 +38,7 @@ class Figure {
         figure.color,
         figure.figureElement,
       ];
-      console.log(tempFigureData);
+      // console.log(tempFigureData);
 
       if (tempFigureData[0] === `pawn`) this.figure.pawnMove();
       if (tempFigureData[0] === `rook`) this.figure.rookMove();
@@ -50,6 +50,14 @@ class Figure {
 
     Figure.prototype.removeFigure = function () {
       this.figureElement.remove();
+    };
+
+    Figure.prototype.beat = function (index) {
+      const died = hexAll[index].firstChild.figure.figureElement;
+      if (died.figure.color === `black`) lootPlayer1.appendChild(died);
+      if (died.figure.color === `white`) lootPlayer2.appendChild(died);
+
+      // hexAll[index].firstChild.figure.removeFigure();
     };
 
     // ------------------------------------
@@ -73,9 +81,17 @@ class Figure {
 
         if (hexAll[this.place + 8 * direction].childElementCount === 0)
           possibleMove.push(this.place + 8 * direction);
-        if (hexAll[this.place + 9 * direction].childElementCount > 0)
+        if (
+          hexAll[this.place + 9 * direction].childElementCount > 0 &&
+          hexAll[this.place + 9 * direction].firstChild.figure.color !==
+            tempFigureData[2]
+        )
           possibleMove.push(this.place + 9 * direction);
-        if (hexAll[this.place + 7 * direction].childElementCount > 0)
+        if (
+          hexAll[this.place + 7 * direction].childElementCount > 0 &&
+          hexAll[this.place + 7 * direction].firstChild.figure.color !==
+            tempFigureData[2]
+        )
           possibleMove.push(this.place + 7 * direction);
 
         for (let i = 0; i < possibleMove.length; i++) {
@@ -86,8 +102,6 @@ class Figure {
     };
 
     Figure.prototype.rookMove = function () {
-      console.log(tempFigureData, `temp`);
-
       if (this.type === "rook") {
         const directions = [
           { indexModifier: 8 }, // Up
@@ -310,7 +324,5 @@ class Figure {
     };
 
     
-
-
   }
 }
