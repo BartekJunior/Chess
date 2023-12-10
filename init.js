@@ -122,6 +122,7 @@ window.addEventListener("dragover", function (event) {
 
 window.addEventListener("drop", function (event) {
   event.preventDefault();
+  console.log(`ZLY RUCH`);
   Figure.prototype.hideMove(possibleMove);
   tempFigureData = [];
   possibleMove = [];

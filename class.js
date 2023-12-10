@@ -45,6 +45,8 @@ class Figure {
       if (tempFigureData[0] === `bishop`) this.figure.bishopMove();
       if (tempFigureData[0] === `queen`) this.figure.queenMove();
       if (tempFigureData[0] === `king`) this.figure.kingMove();
+      if (tempFigureData[0] === `knight`) this.figure.knightMove();
+
 
 
     });
@@ -167,8 +169,6 @@ class Figure {
       }
     };
 
-
-
     Figure.prototype.kingMove = function () {
       if (this.type === "king") {
         const directions = [
@@ -250,6 +250,41 @@ class Figure {
         }
       }
     };
+
+    Figure.prototype.knightMove = function () {
+      if (this.type === "knight") {
+        const knightMoves = [
+          { rowModifier: -2, colModifier: -1 },
+          { rowModifier: -2, colModifier: 1 },
+          { rowModifier: -1, colModifier: -2 },
+          { rowModifier: -1, colModifier: 2 },
+          { rowModifier: 1, colModifier: -2 },
+          { rowModifier: 1, colModifier: 2 },
+          { rowModifier: 2, colModifier: -1 },
+          { rowModifier: 2, colModifier: 1 },
+        ];
+    
+        for (const move of knightMoves) {
+          const targetRow = Math.floor(this.place / 8) + move.rowModifier;
+          const targetCol = this.place % 8 + move.colModifier;
+          const targetIndex = targetRow * 8 + targetCol;
+    
+          if (
+            targetRow >= 0 && targetRow < 8 &&
+            targetCol >= 0 && targetCol < 8 &&
+            hexAll[targetIndex].childElementCount === 0
+          ) {
+            possibleMove.push(targetIndex);
+          }
+        }
+    
+        // Display possible moves
+        for (let i = 0; i < possibleMove.length; i++) {
+          this.showMove(possibleMove[i]);
+        }
+      }
+    };
+    
     
     
     
