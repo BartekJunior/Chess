@@ -74,17 +74,25 @@ new Figure(`bishop`, 61, `white`);
 new Figure(`knight`, 62, `white`);
 new Figure(`rook`, 63, `white`);
 
+
+new Figure(`queen`, 27, `white`);
+
+
+
+
+const figures = document.querySelectorAll(`.figure`);
+
 let tempFigureData = [];
 let possibleMove = [];
 
-// DRAG OVER
+// DROP DROP DROP DROP DROP DROP //
 hexAll.forEach((el, index) => {
   // Prevent default behavior to enable drop
   el.addEventListener("dragover", function (event) {
     event.preventDefault();
   });
 
-  // DRAG DROP
+  // DROP ITSELF
   el.addEventListener("drop", function (event) {
     event.preventDefault();
 
@@ -92,12 +100,30 @@ hexAll.forEach((el, index) => {
       new Figure(tempFigureData[0], index, tempFigureData[2], false);
       tempFigureData[3].figure.removeFigure();
       console.log(`DOBRY RUCH`);
+    } else {
+      console.log(`ZLY RUCH`);
     }
-
-    Figure.prototype.hideMove(possibleMove);
-    console.log(`ZLY RUCH`);
-    tempFigureData = [];
+    // Figure.prototype.hideMove(possibleMove);
+    // tempFigureData = [];
+    // possibleMove = [];
   });
 });
 
-const figures = document.querySelectorAll(`.figure`);
+
+
+
+
+
+
+// DROP OUTSIDE BOARD DROP OUTSIDE BOARDDROP OUTSIDE BOARD //
+window.addEventListener("dragover", function (event) {
+  event.preventDefault();
+});
+
+window.addEventListener("drop", function (event) {
+  event.preventDefault();
+  Figure.prototype.hideMove(possibleMove);
+  tempFigureData = [];
+  possibleMove = [];
+});
+

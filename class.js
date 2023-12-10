@@ -39,34 +39,231 @@ class Figure {
         figure.figureElement,
       ];
       console.log(tempFigureData);
-      this.figure.pawnMove();
+
+      if (tempFigureData[0] === `pawn`) this.figure.pawnMove();
+      if (tempFigureData[0] === `rook`) this.figure.rookMove();
+      if (tempFigureData[0] === `bishop`) this.figure.bishopMove();
+      if (tempFigureData[0] === `queen`) this.figure.queenMove();
+      if (tempFigureData[0] === `king`) this.figure.kingMove();
+
+
     });
 
     Figure.prototype.removeFigure = function () {
       this.figureElement.remove();
     };
 
-    Figure.prototype.showMove = function (targetPlace) {
-      hexAll[targetPlace].move = true;
-      hexAll[targetPlace].classList.add(`yellow`);
+
+
+
+    // ------------------------------------
+    Figure.prototype.showMove = function (possibleMove) {
+      hexAll[possibleMove].move = true;
+      hexAll[possibleMove].classList.add(`yellow`);
     };
 
-    Figure.prototype.hideMove = function (targetPlace) {
-      hexAll[targetPlace].move = false;
-      hexAll[targetPlace].classList.remove(`yellow`);
+    Figure.prototype.hideMove = function (possibleMove) {
+      possibleMove.map((el) => {
+        hexAll[el].move = false;
+        hexAll[el].classList.remove(`yellow`);
+      });
     };
+    // ------------------------------------
+
+
+
 
     Figure.prototype.pawnMove = function () {
       if (this.type === "pawn") {
         // Dla piona białego (white) ruch jest do gory (-1), dla piona czarnego (black) ruch jest w dół (+1)
         const direction = this.color === "white" ? -1 : 1;
 
-        // Sprawdź, czy pole powyżej istnieje na planszy
-        possibleMove = this.place + 8 * direction;
-        if (possibleMove >= 0 && possibleMove < 64) {
-          this.showMove(possibleMove);
+        if (hexAll[this.place + 8 * direction].childElementCount === 0)
+          possibleMove.push(this.place + 8 * direction);
+        if (hexAll[this.place + 9 * direction].childElementCount > 0)
+          possibleMove.push(this.place + 9 * direction);
+        if (hexAll[this.place + 7 * direction].childElementCount > 0)
+          possibleMove.push(this.place + 7 * direction);
+
+        for (let i = 0; i < possibleMove.length; i++) {
+          if (possibleMove[i] >= 0 && possibleMove[i] < 64)
+            this.showMove(possibleMove[i]);
         }
       }
     };
+
+    Figure.prototype.rookMove = function () {
+      if (this.type === "rook") {
+        const directions = [
+          { indexModifier: 8 }, // Up
+          { indexModifier: -8 }, // Down
+          { indexModifier: 1 }, // Right
+          { indexModifier: -1 }, // Left
+        ];
+
+        for (const dir of directions) {
+          let targetIndex = this.place + dir.indexModifier;
+
+          while (
+            targetIndex >= 0 &&
+            targetIndex < 64 &&
+            (dir.indexModifier === 8 ||
+              dir.indexModifier === -8 ||
+              Math.floor(targetIndex / 8) === Math.floor(this.place / 8))
+          ) {
+            // Check if the square is empty
+            if (hexAll[targetIndex].childElementCount === 0) {
+              possibleMove.push(targetIndex);
+            } else {
+              // If the square is not empty, stop checking in this direction
+              break;
+            }
+
+            targetIndex += dir.indexModifier;
+          }
+        }
+
+        // Display possible moves
+        for (let i = 0; i < possibleMove.length; i++) {
+          this.showMove(possibleMove[i]);
+        }
+      }
+    };
+
+    Figure.prototype.bishopMove = function () {
+      if (this.type === "bishop") {
+        const directions = [
+          { indexModifier: 9 }, // Diagonal Up-Right
+          { indexModifier: -9 }, // Diagonal Down-Left
+          { indexModifier: 7 }, // Diagonal Up-Left
+          { indexModifier: -7 }, // Diagonal Down-Right
+        ];
+
+        for (const dir of directions) {
+          let targetIndex = this.place + dir.indexModifier;
+
+          while (
+            targetIndex >= 0 &&
+            targetIndex < 64 &&
+            Math.abs((targetIndex % 8) - (this.place % 8)) ===
+              Math.abs(Math.floor(targetIndex / 8) - Math.floor(this.place / 8))
+          ) {
+            // Check if the square is empty
+            if (hexAll[targetIndex].childElementCount === 0) {
+              possibleMove.push(targetIndex);
+            } else {
+              // If the square is not empty, stop checking in this direction
+              break;
+            }
+
+            targetIndex += dir.indexModifier;
+          }
+        }
+
+        // Display possible moves
+        for (let i = 0; i < possibleMove.length; i++) {
+          this.showMove(possibleMove[i]);
+        }
+      }
+    };
+
+
+
+    Figure.prototype.kingMove = function () {
+      if (this.type === "king") {
+        const directions = [
+          { indexModifier: 8 },   // Up
+          { indexModifier: -8 },  // Down
+          { indexModifier: 1 },   // Right
+          { indexModifier: -1 },  // Left
+          { indexModifier: 9 },   // Diagonal Up-Right
+          { indexModifier: -9 },  // Diagonal Down-Left
+          { indexModifier: 7 },   // Diagonal Up-Left
+          { indexModifier: -7 }   // Diagonal Down-Right
+        ];
+    
+        for (const dir of directions) {
+          const targetIndex = this.place + dir.indexModifier;
+    
+          if (
+            targetIndex >= 0 &&
+            targetIndex < 64 &&
+            (
+              Math.abs(targetIndex % 8 - this.place % 8) <= 1 &&  // Horizontal
+              Math.abs(Math.floor(targetIndex / 8) - Math.floor(this.place / 8)) <= 1  // Vertical
+            )
+          ) {
+            const targetSquare = hexAll[targetIndex];
+    
+            // Check if the square is empty or occupied by any piece
+            if (targetSquare.childElementCount === 0) {
+              possibleMove.push(targetIndex);
+            }
+          }
+        }
+    
+        // Display possible moves
+        for (let i = 0; i < possibleMove.length; i++) {
+          this.showMove(possibleMove[i]);
+        }
+      }
+    };
+
+    Figure.prototype.queenMove = function () {
+      if (this.type === "queen") {
+        const directions = [
+          { rowModifier: 0, colModifier: 1 },   // Right
+          { rowModifier: 0, colModifier: -1 },  // Left
+          { rowModifier: 1, colModifier: 0 },   // Down
+          { rowModifier: -1, colModifier: 0 },  // Up
+          { rowModifier: 1, colModifier: 1 },   // Diagonal Down-Right
+          { rowModifier: -1, colModifier: -1 }, // Diagonal Up-Left
+          { rowModifier: 1, colModifier: -1 },  // Diagonal Down-Left
+          { rowModifier: -1, colModifier: 1 }   // Diagonal Up-Right
+        ];
+    
+        for (const dir of directions) {
+          let targetRow = Math.floor(this.place / 8) + dir.rowModifier;
+          let targetCol = this.place % 8 + dir.colModifier;
+    
+          while (targetRow >= 0 && targetRow < 8 && targetCol >= 0 && targetCol < 8) {
+            const targetIndex = targetRow * 8 + targetCol;
+            const targetSquare = hexAll[targetIndex];
+    
+            // Check if the square is empty or occupied by any piece
+            if (targetSquare.childElementCount === 0) {
+              possibleMove.push(targetIndex);
+            } else {
+              // If the square is not empty, stop checking in this direction
+              break;
+            }
+    
+            // Move to the next square in the current direction
+            targetRow += dir.rowModifier;
+            targetCol += dir.colModifier;
+          }
+        }
+    
+        // Display possible moves
+        for (let i = 0; i < possibleMove.length; i++) {
+          this.showMove(possibleMove[i]);
+        }
+      }
+    };
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
   }
 }
