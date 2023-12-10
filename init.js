@@ -75,7 +75,7 @@ new Figure(`knight`, 62, `white`);
 new Figure(`rook`, 63, `white`);
 
 
-new Figure(`queen`, 27, `white`);
+new Figure(`rook`, 27, `white`);
 
 
 

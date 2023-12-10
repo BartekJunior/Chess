@@ -42,21 +42,15 @@ class Figure {
 
       if (tempFigureData[0] === `pawn`) this.figure.pawnMove();
       if (tempFigureData[0] === `rook`) this.figure.rookMove();
+      if (tempFigureData[0] === `knight`) this.figure.knightMove();
       if (tempFigureData[0] === `bishop`) this.figure.bishopMove();
       if (tempFigureData[0] === `queen`) this.figure.queenMove();
       if (tempFigureData[0] === `king`) this.figure.kingMove();
-      if (tempFigureData[0] === `knight`) this.figure.knightMove();
-
-
-
     });
 
     Figure.prototype.removeFigure = function () {
       this.figureElement.remove();
     };
-
-
-
 
     // ------------------------------------
     Figure.prototype.showMove = function (possibleMove) {
@@ -71,9 +65,6 @@ class Figure {
       });
     };
     // ------------------------------------
-
-
-
 
     Figure.prototype.pawnMove = function () {
       if (this.type === "pawn") {
@@ -95,6 +86,8 @@ class Figure {
     };
 
     Figure.prototype.rookMove = function () {
+      console.log(tempFigureData, `temp`);
+
       if (this.type === "rook") {
         const directions = [
           { indexModifier: 8 }, // Up
@@ -116,6 +109,11 @@ class Figure {
             // Check if the square is empty
             if (hexAll[targetIndex].childElementCount === 0) {
               possibleMove.push(targetIndex);
+            } else if (
+              hexAll[targetIndex].firstChild.figure.color !== tempFigureData[2]
+            ) {
+              possibleMove.push(targetIndex);
+              break;
             } else {
               // If the square is not empty, stop checking in this direction
               break;
@@ -153,6 +151,11 @@ class Figure {
             // Check if the square is empty
             if (hexAll[targetIndex].childElementCount === 0) {
               possibleMove.push(targetIndex);
+            } else if (
+              hexAll[targetIndex].firstChild.figure.color !== tempFigureData[2]
+            ) {
+              possibleMove.push(targetIndex);
+              break;
             } else {
               // If the square is not empty, stop checking in this direction
               break;
@@ -172,36 +175,39 @@ class Figure {
     Figure.prototype.kingMove = function () {
       if (this.type === "king") {
         const directions = [
-          { indexModifier: 8 },   // Up
-          { indexModifier: -8 },  // Down
-          { indexModifier: 1 },   // Right
-          { indexModifier: -1 },  // Left
-          { indexModifier: 9 },   // Diagonal Up-Right
-          { indexModifier: -9 },  // Diagonal Down-Left
-          { indexModifier: 7 },   // Diagonal Up-Left
-          { indexModifier: -7 }   // Diagonal Down-Right
+          { indexModifier: 8 }, // Up
+          { indexModifier: -8 }, // Down
+          { indexModifier: 1 }, // Right
+          { indexModifier: -1 }, // Left
+          { indexModifier: 9 }, // Diagonal Up-Right
+          { indexModifier: -9 }, // Diagonal Down-Left
+          { indexModifier: 7 }, // Diagonal Up-Left
+          { indexModifier: -7 }, // Diagonal Down-Right
         ];
-    
+
         for (const dir of directions) {
           const targetIndex = this.place + dir.indexModifier;
-    
+
           if (
             targetIndex >= 0 &&
             targetIndex < 64 &&
-            (
-              Math.abs(targetIndex % 8 - this.place % 8) <= 1 &&  // Horizontal
-              Math.abs(Math.floor(targetIndex / 8) - Math.floor(this.place / 8)) <= 1  // Vertical
-            )
+            Math.abs((targetIndex % 8) - (this.place % 8)) <= 1 && // Horizontal
+            Math.abs(
+              Math.floor(targetIndex / 8) - Math.floor(this.place / 8)
+            ) <= 1 // Vertical
           ) {
             const targetSquare = hexAll[targetIndex];
-    
+
             // Check if the square is empty or occupied by any piece
-            if (targetSquare.childElementCount === 0) {
+            if (
+              targetSquare.childElementCount === 0 ||
+              targetSquare.firstChild.figure.color !== tempFigureData[2]
+            ) {
               possibleMove.push(targetIndex);
             }
           }
         }
-    
+
         // Display possible moves
         for (let i = 0; i < possibleMove.length; i++) {
           this.showMove(possibleMove[i]);
@@ -212,38 +218,48 @@ class Figure {
     Figure.prototype.queenMove = function () {
       if (this.type === "queen") {
         const directions = [
-          { rowModifier: 0, colModifier: 1 },   // Right
-          { rowModifier: 0, colModifier: -1 },  // Left
-          { rowModifier: 1, colModifier: 0 },   // Down
-          { rowModifier: -1, colModifier: 0 },  // Up
-          { rowModifier: 1, colModifier: 1 },   // Diagonal Down-Right
+          { rowModifier: 0, colModifier: 1 }, // Right
+          { rowModifier: 0, colModifier: -1 }, // Left
+          { rowModifier: 1, colModifier: 0 }, // Down
+          { rowModifier: -1, colModifier: 0 }, // Up
+          { rowModifier: 1, colModifier: 1 }, // Diagonal Down-Right
           { rowModifier: -1, colModifier: -1 }, // Diagonal Up-Left
-          { rowModifier: 1, colModifier: -1 },  // Diagonal Down-Left
-          { rowModifier: -1, colModifier: 1 }   // Diagonal Up-Right
+          { rowModifier: 1, colModifier: -1 }, // Diagonal Down-Left
+          { rowModifier: -1, colModifier: 1 }, // Diagonal Up-Right
         ];
-    
+
         for (const dir of directions) {
           let targetRow = Math.floor(this.place / 8) + dir.rowModifier;
-          let targetCol = this.place % 8 + dir.colModifier;
-    
-          while (targetRow >= 0 && targetRow < 8 && targetCol >= 0 && targetCol < 8) {
+          let targetCol = (this.place % 8) + dir.colModifier;
+
+          while (
+            targetRow >= 0 &&
+            targetRow < 8 &&
+            targetCol >= 0 &&
+            targetCol < 8
+          ) {
             const targetIndex = targetRow * 8 + targetCol;
             const targetSquare = hexAll[targetIndex];
-    
+
             // Check if the square is empty or occupied by any piece
             if (targetSquare.childElementCount === 0) {
               possibleMove.push(targetIndex);
+            } else if (
+              hexAll[targetIndex].firstChild.figure.color !== tempFigureData[2]
+            ) {
+              possibleMove.push(targetIndex);
+              break;
             } else {
               // If the square is not empty, stop checking in this direction
               break;
             }
-    
+
             // Move to the next square in the current direction
             targetRow += dir.rowModifier;
             targetCol += dir.colModifier;
           }
         }
-    
+
         // Display possible moves
         for (let i = 0; i < possibleMove.length; i++) {
           this.showMove(possibleMove[i]);
@@ -263,41 +279,37 @@ class Figure {
           { rowModifier: 2, colModifier: -1 },
           { rowModifier: 2, colModifier: 1 },
         ];
-    
+
         for (const move of knightMoves) {
           const targetRow = Math.floor(this.place / 8) + move.rowModifier;
-          const targetCol = this.place % 8 + move.colModifier;
+          const targetCol = (this.place % 8) + move.colModifier;
           const targetIndex = targetRow * 8 + targetCol;
-    
+
           if (
-            targetRow >= 0 && targetRow < 8 &&
-            targetCol >= 0 && targetCol < 8 &&
-            hexAll[targetIndex].childElementCount === 0
+            targetRow >= 0 &&
+            targetRow < 8 &&
+            targetCol >= 0 &&
+            targetCol < 8
           ) {
-            possibleMove.push(targetIndex);
+            if (hexAll[targetIndex].childElementCount === 0) {
+              possibleMove.push(targetIndex);
+            } else if (
+              hexAll[targetIndex].childElementCount === 1 &&
+              hexAll[targetIndex].firstChild.figure.color !== tempFigureData[2]
+            ) {
+              possibleMove.push(targetIndex);
+            }
           }
         }
-    
+
         // Display possible moves
         for (let i = 0; i < possibleMove.length; i++) {
           this.showMove(possibleMove[i]);
         }
       }
     };
-    
-    
-    
-    
-    
-    
-    
-    
 
-
-
-
-
-
+    
 
 
   }
