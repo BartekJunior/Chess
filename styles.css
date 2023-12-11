@@ -1,3 +1,18 @@
+
+/* PUBNUB */
+
+.chat-msg {
+  display: inline-block;
+  vertical-align: bottom;
+  width: auto;
+}
+
+.chat-publisher {
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
 .first {
   margin: 0 auto;
   width: 300px;
