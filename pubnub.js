@@ -1,7 +1,6 @@
-
 // const UUID = `bartek`;
 const UUID = prompt(`Write Player's Name`);
-
+let player;
 
 document.addEventListener(`keydown`, function (event) {
   if (event.key === `Enter`) buttonClick();
@@ -45,7 +44,6 @@ const setupPubNub = () => {
     status: (statusEvent) => {
       if (statusEvent.category === "PNConnectedCategory") {
         console.log("Connected");
-        // handleConnected();
       }
     },
 
@@ -57,14 +55,25 @@ const setupPubNub = () => {
 
     presence: (event) => {
       console.log(`PRESENCE EVENT`, event);
-      
-      if (event.action === "join") {
-        console.log(`User ${UUID} has joined.`);
-      } else if (event.action === "leave") {
-        console.log(`User ${UUID} has left.`);
-      }
-    },
 
+      if (event.action === "join") {
+        console.log(`User ${event.uuid} has joined.`);
+
+        // SET PLAYER in const PLAYER //
+        let color = event.occupancy === 1 ? `white` : `black`;
+        if (event.uuid === UUID) {
+          player = {
+            name: event.uuid,
+            nr: event.occupancy,
+            color: color,
+          };
+        }
+
+      } else if (event.action === "leave") {
+        console.log(`User ${event.uuid} has left.`);
+      }
+
+    },
   };
 
   pubnub.addListener(listener);
@@ -77,23 +86,7 @@ const setupPubNub = () => {
 };
 
 // run after page is loaded
-
 window.onload = setupPubNub;
-
-// window.onload = () => {
-//   console.log(`before unsubscrube`);
-  
-//   if (pubnub) {
-//     pubnub.unsubscribe({
-//       channels: ["hello_world"],
-//     });
-//   }
-//   console.log(`After unsubscribe`);
-  
-//   setupPubNub();
-// };
-
-
 
 // publish message
 const publishMessage = async (message) => {
