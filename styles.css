@@ -1,15 +1,27 @@
+body {
+  padding: 10px 10px;
+}
 
 /* PUBNUB */
+.chat-global {
+  /* background-color: rgb(189, 189, 137); */
+}
+
+.msg-container {
+  width: fit-content;
+  padding: 0 3px;
+  background-color: rgb(189, 189, 137);
+}
 
 .chat-msg {
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
   width: auto;
 }
 
 .chat-publisher {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   margin-right: 5px;
 }
 
