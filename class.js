@@ -1,5 +1,15 @@
 "use strict";
 
+class Player {
+  constructor (name, nr, color, turn) {
+    this.name = name;
+    this.nr = nr;
+    this.color = color;
+    this.turn = turn;
+  }
+}
+
+
 class Figure {
   constructor(type, place, color, fresh) {
     this.type = type;
@@ -36,9 +46,8 @@ class Figure {
         figure.type,
         figure.place,
         figure.color,
-        figure.figureElement,
+        // figure.figureElement,
       ];
-      // console.log(tempFigureData);
 
       if (tempFigureData[0] === `pawn`) this.figure.pawnMove();
       if (tempFigureData[0] === `rook`) this.figure.rookMove();

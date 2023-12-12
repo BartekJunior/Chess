@@ -1,10 +1,11 @@
-// const UUID = `bartek`;
-const UUID = prompt(`Write Player's Name`);
-let player;
+
 
 document.addEventListener(`keydown`, function (event) {
   if (event.key === `Enter`) buttonClick();
 });
+
+
+////// LISTENERS FUNCTIONS ///////
 
 const buttonClick = () => {
   var input = document.getElementById("message-body");
@@ -29,6 +30,21 @@ const showMessage = (messageEvent) => {
   msgContainer.appendChild(message);
 };
 
+const handleMove = (messageEvent) => {
+  tempFigureData = messageEvent.message.description;
+  console.log(`tempFigureData is`, tempFigureData);
+
+  if (hexAll[tempFigureData[3]].childElementCount > 0) {
+    Figure.prototype.beat(tempFigureData[3])
+  }
+  
+  new Figure(tempFigureData[0], tempFigureData[3], tempFigureData[2], false);
+  hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+
+  console.log(`move was handeled`);
+}
+
+
 let pubnub;
 
 const setupPubNub = () => {
@@ -50,8 +66,13 @@ const setupPubNub = () => {
     message: (messageEvent) => {
       // showMessage(messageEvent.message.description);
       showMessage(messageEvent);
+
+      if (messageEvent.publisher !== player.name)
+      handleMove(messageEvent);
+
       console.log(`MESSAGE EVENT`, messageEvent);
     },
+
 
     presence: (event) => {
       console.log(`PRESENCE EVENT`, event);
@@ -61,18 +82,26 @@ const setupPubNub = () => {
 
         // SET PLAYER in const PLAYER //
         let color = event.occupancy === 1 ? `white` : `black`;
+        let turn = event.occupancy === 1 ? true : false;
         if (event.uuid === UUID) {
-          player = {
-            name: event.uuid,
-            nr: event.occupancy,
-            color: color,
-          };
-        }
 
+          player = new Player (event.uuid, event.occupancy, color, turn);
+
+          // player = {
+          //   name: event.uuid,
+          //   nr: event.occupancy,
+          //   color: color,
+          //   turn: turn,
+          // };
+
+
+          if (player.nr === 1) lootPlayer1title.firstChild.innerHTML = player.name + ` loot`
+          else if (player.nr === 2) lootPlayer2title.firstChild.innerHTML = player.name + ` loot`
+
+        }
       } else if (event.action === "leave") {
         console.log(`User ${event.uuid} has left.`);
       }
-
     },
   };
 

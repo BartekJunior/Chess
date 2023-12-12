@@ -1,10 +1,17 @@
 "use strict";
 
+// const UUID = `bartek`;
+const UUID = prompt(`Write Player's Name`);
+let player;
+
 const squareNode = document.querySelectorAll(`.square`);
 const hexAll = Array.from(squareNode);
 
 const lootPlayer1 = document.querySelector(`.loot-player1-itself`);
 const lootPlayer2 = document.querySelector(`.loot-player2-itself`);
+
+const lootPlayer1title = document.querySelector(`.loot-player1-title`);
+const lootPlayer2title = document.querySelector(`.loot-player2-title`);
 
 // Show Clicked square //
 hexAll.forEach((el, index) => {
@@ -79,8 +86,12 @@ new Figure(`rook`, 27, `white`);
 
 const figures = document.querySelectorAll(`.figure`);
 
+
+
 let tempFigureData = [];
 let possibleMove = [];
+
+
 
 // DROP DROP DROP DROP DROP DROP //
 hexAll.forEach((el, index) => {
@@ -92,6 +103,7 @@ hexAll.forEach((el, index) => {
   // DROP ITSELF
   el.addEventListener("drop", function (event) {
     event.preventDefault();
+    tempFigureData.push(index);
 
     if (el.move) {
       if (el.childElementCount > 0) {
@@ -100,18 +112,24 @@ hexAll.forEach((el, index) => {
       }
 
       new Figure(tempFigureData[0], index, tempFigureData[2], false);
-      tempFigureData[3].figure.removeFigure();
-      console.log(`DOBRY RUCH`);
+      hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+
+      // console.log(`DOBRY RUCH`);
+
+      // console.log(`just before sending hmm`);
+      publishMessage(tempFigureData);
+
     } else {
       console.log(`ZLY RUCH`);
     }
+
+    // console.log(`just before deleting tempFigureData`);
     // Figure.prototype.hideMove(possibleMove);
     // tempFigureData = [];
     // possibleMove = [];
+
   });
 });
-
-
 
 
 
@@ -123,7 +141,7 @@ window.addEventListener("dragover", function (event) {
 
 window.addEventListener("drop", function (event) {
   event.preventDefault();
-  // console.log(`ZLY RUCH`);
+  // console.log(`just before deleting tempFigureData`);
   Figure.prototype.hideMove(possibleMove);
   tempFigureData = [];
   possibleMove = [];
