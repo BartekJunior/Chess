@@ -1,14 +1,31 @@
 "use strict";
 
 class Player {
-  constructor (name, nr, color, turn) {
+  constructor(name, nr, color, turn) {
     this.name = name;
     this.nr = nr;
     this.color = color;
     this.turn = turn;
+
+    Player.prototype.changeTurn = function () {
+      this.turn = !this.turn;
+      // console.log(`player.changeTurn Done`);
+    };
+
+    Player.prototype.activateTurn = function () {
+      if (!this.turn) {
+        info.innerHTML = `Czekaj na swój ruch`;
+        info.style.backgroundColor = `red`;
+        gameContainer.classList.add(`disable`);
+      }
+      if (this.turn) {
+        info.innerHTML = `Teraz Twój Ruch! Nie Spierdol tego!`;
+        info.style.backgroundColor = `green`;
+        gameContainer.classList.remove(`disable`);
+      }
+    };
   }
 }
-
 
 class Figure {
   constructor(type, place, color, fresh) {
@@ -40,21 +57,25 @@ class Figure {
 
     // DRAG START
     this.figureElement.addEventListener("dragstart", function (event) {
-      event.dataTransfer.setData("text/plain", "Drag me!");
-      const figure = this.figure;
-      tempFigureData = [
-        figure.type,
-        figure.place,
-        figure.color,
-        // figure.figureElement,
-      ];
+      // console.log(`figure.color`, this.figure.color);
 
-      if (tempFigureData[0] === `pawn`) this.figure.pawnMove();
-      if (tempFigureData[0] === `rook`) this.figure.rookMove();
-      if (tempFigureData[0] === `knight`) this.figure.knightMove();
-      if (tempFigureData[0] === `bishop`) this.figure.bishopMove();
-      if (tempFigureData[0] === `queen`) this.figure.queenMove();
-      if (tempFigureData[0] === `king`) this.figure.kingMove();
+      if (player.color === this.figure.color) {
+        // event.dataTransfer.setData("text/plain", "Drag me!");
+        const figure = this.figure;
+        tempFigureData = [
+          figure.type,
+          figure.place,
+          figure.color,
+          // figure.figureElement,
+        ];
+
+        if (tempFigureData[0] === `pawn`) this.figure.pawnMove();
+        if (tempFigureData[0] === `rook`) this.figure.rookMove();
+        if (tempFigureData[0] === `knight`) this.figure.knightMove();
+        if (tempFigureData[0] === `bishop`) this.figure.bishopMove();
+        if (tempFigureData[0] === `queen`) this.figure.queenMove();
+        if (tempFigureData[0] === `king`) this.figure.kingMove();
+      }
     });
 
     Figure.prototype.removeFigure = function () {
@@ -331,7 +352,5 @@ class Figure {
         }
       }
     };
-
-    
   }
 }

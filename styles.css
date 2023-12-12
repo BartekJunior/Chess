@@ -2,6 +2,10 @@ body {
   padding: 10px 10px;
 }
 
+.disable {
+  pointer-events: none;
+}
+
 /* PUBNUB */
 .chat-global {
   /* background-color: rgb(189, 189, 137); */
@@ -56,6 +60,11 @@ body {
 #player2,
 .h1-header {
   line-height: 60px;
+}
+
+.h1-header, .h3-info {
+  display: block;
+  text-align: center;
 }
 
 .game-container {

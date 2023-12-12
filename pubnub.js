@@ -1,9 +1,6 @@
-
-
 document.addEventListener(`keydown`, function (event) {
   if (event.key === `Enter`) buttonClick();
 });
-
 
 ////// LISTENERS FUNCTIONS ///////
 
@@ -35,15 +32,14 @@ const handleMove = (messageEvent) => {
   console.log(`tempFigureData is`, tempFigureData);
 
   if (hexAll[tempFigureData[3]].childElementCount > 0) {
-    Figure.prototype.beat(tempFigureData[3])
+    Figure.prototype.beat(tempFigureData[3]);
   }
-  
+
   new Figure(tempFigureData[0], tempFigureData[3], tempFigureData[2], false);
   hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
 
   console.log(`move was handeled`);
-}
-
+};
 
 let pubnub;
 
@@ -67,12 +63,16 @@ const setupPubNub = () => {
       // showMessage(messageEvent.message.description);
       showMessage(messageEvent);
 
-      if (messageEvent.publisher !== player.name)
-      handleMove(messageEvent);
+      if (messageEvent.publisher !== player.name) {
+        handleMove(messageEvent);
+        player.changeTurn();
+        player.activateTurn();
+
+      } 
+        
 
       console.log(`MESSAGE EVENT`, messageEvent);
     },
-
 
     presence: (event) => {
       console.log(`PRESENCE EVENT`, event);
@@ -84,20 +84,13 @@ const setupPubNub = () => {
         let color = event.occupancy === 1 ? `white` : `black`;
         let turn = event.occupancy === 1 ? true : false;
         if (event.uuid === UUID) {
+          player = new Player(event.uuid, event.occupancy, color, turn);
+          player.activateTurn();
 
-          player = new Player (event.uuid, event.occupancy, color, turn);
-
-          // player = {
-          //   name: event.uuid,
-          //   nr: event.occupancy,
-          //   color: color,
-          //   turn: turn,
-          // };
-
-
-          if (player.nr === 1) lootPlayer1title.firstChild.innerHTML = player.name + ` loot`
-          else if (player.nr === 2) lootPlayer2title.firstChild.innerHTML = player.name + ` loot`
-
+          if (player.nr === 1)
+            lootPlayer1title.firstChild.innerHTML = player.name + ` loot`;
+          else if (player.nr === 2)
+            lootPlayer2title.firstChild.innerHTML = player.name + ` loot`;
         }
       } else if (event.action === "leave") {
         console.log(`User ${event.uuid} has left.`);
@@ -130,3 +123,7 @@ const publishMessage = async (message) => {
   };
   await pubnub.publish(publishPayload);
 };
+
+
+
+

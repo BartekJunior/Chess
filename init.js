@@ -13,6 +13,11 @@ const lootPlayer2 = document.querySelector(`.loot-player2-itself`);
 const lootPlayer1title = document.querySelector(`.loot-player1-title`);
 const lootPlayer2title = document.querySelector(`.loot-player2-title`);
 
+const gameContainer = document.querySelector(`.game-container`);
+const info = document.querySelector(`.h3-info`);
+
+
+
 // Show Clicked square //
 hexAll.forEach((el, index) => {
   el.addEventListener(`click`, function () {
@@ -87,10 +92,8 @@ new Figure(`rook`, 27, `white`);
 const figures = document.querySelectorAll(`.figure`);
 
 
-
 let tempFigureData = [];
 let possibleMove = [];
-
 
 
 // DROP DROP DROP DROP DROP DROP //
@@ -118,6 +121,8 @@ hexAll.forEach((el, index) => {
 
       // console.log(`just before sending hmm`);
       publishMessage(tempFigureData);
+      player.changeTurn();
+      player.activateTurn();
 
     } else {
       console.log(`ZLY RUCH`);
