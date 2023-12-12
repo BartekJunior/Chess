@@ -87,7 +87,7 @@ new Figure(`bishop`, 61, `white`);
 new Figure(`knight`, 62, `white`);
 new Figure(`rook`, 63, `white`);
 
-new Figure(`rook`, 28, `white`);
+// new Figure(`rook`, 28, `white`);
 
 const figures = document.querySelectorAll(`.figure`);
 
