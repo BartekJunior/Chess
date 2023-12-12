@@ -7,14 +7,35 @@ body {
 }
 
 /* PUBNUB */
+.global-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.game-container {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 80px;
+}
+
 .chat-global {
-  /* background-color: rgb(189, 189, 137); */
+  width: 300px;
+  border-radius: 3px;
+  border: 3px solid black;
 }
 
 .msg-container {
   width: fit-content;
   padding: 0 3px;
+  /* background-color: rgb(189, 189, 137); */
+}
+
+.msg-color1 {
   background-color: rgb(189, 189, 137);
+}
+
+.msg-color2 {
+  background-color: rgb(110, 185, 190);
 }
 
 .chat-msg {
@@ -62,15 +83,13 @@ body {
   line-height: 60px;
 }
 
-.h1-header, .h3-info {
+.h1-header,
+.h3-info {
   display: block;
   text-align: center;
 }
 
-.game-container {
-  display: flex;
-  justify-content: space-around;
-}
+
 
 .loot-global {
   width: 250px;
@@ -85,7 +104,7 @@ body {
 }
 
 .board {
-  margin: 30px 0;
+  margin: 30px 40px;
 
   display: grid;
   grid-template-columns: repeat(8, 90px);

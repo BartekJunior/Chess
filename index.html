@@ -44,119 +44,117 @@
 
     <!-------------- PUBNUB ------------------->
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.7.4.5.js"></script>
-    
-
   </head>
 
   <body>
-
-    <div class="chat-global">
-      <input id="message-body" type="text">
-      <button id="sendButton" onclick="buttonClick()">Send</button>
-      <div id="messages"></div>
-  </div>
-
-
     <div class="header">
       <div class="player-container">
-        <h2 id="player1">Player1</h2>
+        <h2 id="player1"></h2>
       </div>
       <div class="title">
         <h1 class="h1-header">CHESS GAME</h1>
         <h3 class="h3-info">...</h3>
       </div>
       <div class="player-container">
-        <h2 id="player2">Player2</h2>
+        <h2 id="player2"></h2>
       </div>
     </div>
 
-    <div class="game-container">
-      <div class="loot-global">
-        <div class="loot-player1-title"><h2>Player 1 Loot</h2></div>
-        <div class="loot-player1-itself"></div>
+    <div class="global-container">
+      <div class="game-container">
+        <div class="loot-global">
+          <div class="loot-player1-title"><h2>Player 1 Loot</h2></div>
+          <div class="loot-player1-itself"></div>
+        </div>
+
+        <div class="board">
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+        </div>
+
+        <div class="loot-global">
+          <div class="loot-player2-title"><h2>Player 2 Loot</h2></div>
+          <div class="loot-player2-itself"></div>
+        </div>
       </div>
 
-      <div class="board">
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-      </div>
-
-      <div class="loot-global">
-        <div class="loot-player2-title"><h2>Player 2 Loot</h2></div>
-        <div class="loot-player2-itself"></div>
+      <div class="chat-global">
+        <input id="message-body" type="text" />
+        <button id="sendButton" onclick="buttonClick()">Chat</button>
+        <div id="messages"></div>
       </div>
     </div>
 
-    <div class="container mt-5">
+    <!-- <div class="container mt-5">
       <div class="row">
         <div class="col-xl-3 col-sm-6 test">Hehe</div>
         <div class="col-xl-3 col-sm-6 test">Hehe</div>
         <div class="col-xl-3 col-sm-6 test">Hehe</div>
         <div class="col-xl-3 col-sm-6 test">Hehe</div>
       </div>
-    </div>
+    </div> -->
   </body>
 
   <script src="./pubnub.js"></script>

@@ -14,6 +14,10 @@ const showMessage = (messageEvent) => {
   const msgContainer = document.createElement("div");
   msgContainer.classList.add(`msg-container`);
 
+  if (messageEvent.publisher === UUID) msgContainer.classList.add(`msg-color1`);
+  if (messageEvent.publisher !== UUID) msgContainer.classList.add(`msg-color2`);
+
+
   const publisher = document.createElement("div");
   publisher.classList.add(`chat-publisher`, `chat-msg`);
   publisher.innerText = messageEvent.publisher + `:`;
@@ -61,9 +65,10 @@ const setupPubNub = () => {
 
     message: (messageEvent) => {
       // showMessage(messageEvent.message.description);
+      if (typeof(messageEvent.message.description) === `string`)
       showMessage(messageEvent);
 
-      if (messageEvent.publisher !== player.name) {
+      if (messageEvent.publisher !== player.name && typeof(messageEvent.message.description) !== `string`) {
         handleMove(messageEvent);
         player.changeTurn();
         player.activateTurn();
