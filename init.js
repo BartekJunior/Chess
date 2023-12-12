@@ -87,7 +87,7 @@ new Figure(`bishop`, 61, `white`);
 new Figure(`knight`, 62, `white`);
 new Figure(`rook`, 63, `white`);
 
-new Figure(`rook`, 27, `white`);
+new Figure(`rook`, 28, `white`);
 
 const figures = document.querySelectorAll(`.figure`);
 
@@ -135,8 +135,6 @@ hexAll.forEach((el, index) => {
 
   });
 });
-
-
 
 
 // DROP OUTSIDE BOARD DROP OUTSIDE BOARDDROP OUTSIDE BOARD //

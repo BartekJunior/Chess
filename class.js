@@ -86,6 +86,10 @@ class Figure {
       const died = hexAll[index].firstChild.figure.figureElement;
       if (died.figure.color === `black`) lootPlayer1.appendChild(died);
       if (died.figure.color === `white`) lootPlayer2.appendChild(died);
+      if (died.figure.type === `king` && died.figure.color === player.color) alert(`Your KING is DOWN. YOU LOOSE!`);
+      if (died.figure.type === `king` && died.figure.color !== player.color) alert(`YOU WIN!!!!!!!!!!!!!!!`);
+
+
 
       // hexAll[index].firstChild.figure.removeFigure();
     };
