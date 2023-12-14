@@ -86,10 +86,10 @@ class Figure {
       const died = hexAll[index].firstChild.figure.figureElement;
       if (died.figure.color === `black`) lootPlayer1.appendChild(died);
       if (died.figure.color === `white`) lootPlayer2.appendChild(died);
-      if (died.figure.type === `king` && died.figure.color === player.color) alert(`CHECK MATE!!! YOU LOOSE!!!`);
-      if (died.figure.type === `king` && died.figure.color !== player.color) alert(`CHECK MATE!!! YOU WIN!!!!!!!!!!!!!!!`);
-
-
+      if (died.figure.type === `king` && died.figure.color === player.color)
+        alert(`CHECK MATE!!! YOU LOOSE!!!`);
+      if (died.figure.type === `king` && died.figure.color !== player.color)
+        alert(`CHECK MATE!!! YOU WIN!!!!!!!!!!!!!!!`);
 
       // hexAll[index].firstChild.figure.removeFigure();
     };
@@ -113,8 +113,16 @@ class Figure {
         // Dla piona białego (white) ruch jest do gory (-1), dla piona czarnego (black) ruch jest w dół (+1)
         const direction = this.color === "white" ? -1 : 1;
 
-        if (hexAll[this.place + 8 * direction].childElementCount === 0)
+        if (hexAll[this.place + 8 * direction].childElementCount === 0) {
           possibleMove.push(this.place + 8 * direction);
+
+          if (
+            hexAll[this.place + 16 * direction].childElementCount === 0 &&
+            this.fresh === undefined
+          )
+            possibleMove.push(this.place + 16 * direction);
+        }
+
         if (
           hexAll[this.place + 9 * direction].childElementCount > 0 &&
           hexAll[this.place + 9 * direction].firstChild.figure.color !==

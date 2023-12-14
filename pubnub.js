@@ -35,6 +35,7 @@ const handleMove = (messageEvent) => {
   tempFigureData = messageEvent.message.description;
   console.log(`tempFigureData is`, tempFigureData);
 
+
   if (hexAll[tempFigureData[3]].childElementCount > 0) {
     Figure.prototype.beat(tempFigureData[3]);
   }
@@ -42,7 +43,7 @@ const handleMove = (messageEvent) => {
   new Figure(tempFigureData[0], tempFigureData[3], tempFigureData[2], false);
   hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
 
-  console.log(`move was handeled`);
+  // console.log(`move was handeled`);
 };
 
 let pubnub;
@@ -71,7 +72,7 @@ const setupPubNub = () => {
       if (messageEvent.publisher !== player.name && typeof(messageEvent.message.description) !== `string`) {
         handleMove(messageEvent);
         player.changeTurn();
-        player.activateTurn();
+        // player.activateTurn();
 
       } 
         
@@ -90,7 +91,7 @@ const setupPubNub = () => {
         let turn = event.occupancy === 1 ? true : false;
         if (event.uuid === UUID) {
           player = new Player(event.uuid, event.occupancy, color, turn);
-          player.activateTurn();
+          // player.activateTurn();
 
           if (player.nr === 1)
             lootPlayer1title.firstChild.innerHTML = player.name + ` loot`;

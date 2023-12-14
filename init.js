@@ -122,7 +122,7 @@ hexAll.forEach((el, index) => {
       // console.log(`just before sending hmm`);
       publishMessage(tempFigureData);
       player.changeTurn();
-      player.activateTurn();
+      // player.activateTurn();
 
     } else {
       console.log(`ZLY RUCH`);
