@@ -86,6 +86,7 @@ class Figure {
       const died = hexAll[index].firstChild.figure.figureElement;
       if (died.figure.color === `black`) lootPlayer1.appendChild(died);
       if (died.figure.color === `white`) lootPlayer2.appendChild(died);
+
       if (died.figure.type === `king` && died.figure.color === player.color)
         alert(`CHECK MATE!!! YOU LOOSE!!!`);
       if (died.figure.type === `king` && died.figure.color !== player.color)
@@ -167,6 +168,13 @@ class Figure {
               possibleMove.push(targetIndex);
             } else if (
               hexAll[targetIndex].firstChild.figure.color !== tempFigureData[2]
+            ) {
+              possibleMove.push(targetIndex);
+              break;
+            } else if (
+              // rook can move into players king for rochade //
+              hexAll[targetIndex].firstChild.figure.type === `king` &&
+              this.color === hexAll[targetIndex].firstChild.figure.color
             ) {
               possibleMove.push(targetIndex);
               break;

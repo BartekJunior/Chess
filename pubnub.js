@@ -35,7 +35,6 @@ const handleMove = (messageEvent) => {
   tempFigureData = messageEvent.message.description;
   console.log(`tempFigureData is`, tempFigureData);
 
-
   if (hexAll[tempFigureData[3]].childElementCount > 0) {
     Figure.prototype.beat(tempFigureData[3]);
   }
@@ -76,8 +75,7 @@ const setupPubNub = () => {
 
       } 
         
-
-      console.log(`MESSAGE EVENT`, messageEvent);
+      console.log(`messageEvent.message.description`, messageEvent.message.description);
     },
 
     presence: (event) => {
