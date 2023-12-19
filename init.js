@@ -51,41 +51,41 @@ const drawWhiteSquare = function () {
 drawWhiteSquare();
 
 // DRAW ALL START FIGURES //
-new Figure(`rook`, 0, `black`);
-new Figure(`knight`, 1, `black`);
-new Figure(`bishop`, 2, `black`);
-new Figure(`queen`, 3, `black`);
-new Figure(`king`, 4, `black`);
-new Figure(`bishop`, 5, `black`);
-new Figure(`knight`, 6, `black`);
-new Figure(`rook`, 7, `black`);
+new Figure(`rook`, 0, `black`, true);
+new Figure(`knight`, 1, `black`, true);
+new Figure(`bishop`, 2, `black`, true);
+new Figure(`queen`, 3, `black`, true);
+new Figure(`king`, 4, `black`, true);
+new Figure(`bishop`, 5, `black`, true);
+new Figure(`knight`, 6, `black`, true);
+new Figure(`rook`, 7, `black`, true);
 
-new Figure(`pawn`, 8, `black`);
-new Figure(`pawn`, 9, `black`);
-new Figure(`pawn`, 10, `black`);
-new Figure(`pawn`, 11, `black`);
-new Figure(`pawn`, 12, `black`);
-new Figure(`pawn`, 13, `black`);
-new Figure(`pawn`, 14, `black`);
-new Figure(`pawn`, 15, `black`);
+new Figure(`pawn`, 8, `black`, true);
+new Figure(`pawn`, 9, `black`, true);
+new Figure(`pawn`, 10, `black`, true);
+new Figure(`pawn`, 11, `black`, true);
+new Figure(`pawn`, 12, `black`, true);
+new Figure(`pawn`, 13, `black`, true);
+new Figure(`pawn`, 14, `black`, true);
+new Figure(`pawn`, 15, `black`, true);
 
-new Figure(`pawn`, 48, `white`);
-new Figure(`pawn`, 49, `white`);
-new Figure(`pawn`, 50, `white`);
-new Figure(`pawn`, 51, `white`);
-new Figure(`pawn`, 52, `white`);
-new Figure(`pawn`, 53, `white`);
-new Figure(`pawn`, 54, `white`);
-new Figure(`pawn`, 55, `white`);
+new Figure(`pawn`, 48, `white`, true);
+new Figure(`pawn`, 49, `white`, true);
+new Figure(`pawn`, 50, `white`, true);
+new Figure(`pawn`, 51, `white`, true);
+new Figure(`pawn`, 52, `white`, true);
+new Figure(`pawn`, 53, `white`, true);
+new Figure(`pawn`, 54, `white`, true);
+new Figure(`pawn`, 55, `white`, true);
 
-new Figure(`rook`, 56, `white`);
-new Figure(`knight`, 57, `white`);
-new Figure(`bishop`, 58, `white`);
-new Figure(`queen`, 59, `white`);
-new Figure(`king`, 60, `white`);
-new Figure(`bishop`, 61, `white`);
-new Figure(`knight`, 62, `white`);
-new Figure(`rook`, 63, `white`);
+new Figure(`rook`, 56, `white`, true);
+new Figure(`knight`, 57, `white`, true);
+new Figure(`bishop`, 58, `white`, true);
+new Figure(`queen`, 59, `white`, true);
+new Figure(`king`, 60, `white`, true);
+new Figure(`bishop`, 61, `white`, true);
+new Figure(`knight`, 62, `white`, true);
+new Figure(`rook`, 63, `white`, true);
 
 // new Figure(`rook`, 28, `white`);
 
@@ -94,6 +94,7 @@ const figures = document.querySelectorAll(`.figure`);
 
 let tempFigureData = [];
 let possibleMove = [];
+let rookRochadePosition;
 
 
 // DROP DROP DROP DROP DROP DROP //

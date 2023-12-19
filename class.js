@@ -171,14 +171,16 @@ class Figure {
             ) {
               possibleMove.push(targetIndex);
               break;
-            } else if (
-              // rook can move into players king for rochade //
-              hexAll[targetIndex].firstChild.figure.type === `king` &&
-              this.color === hexAll[targetIndex].firstChild.figure.color
-            ) {
-              possibleMove.push(targetIndex);
-              break;
-            } else {
+            }
+            // else if (
+            //   // rook can move into players king for rochade //
+            //   hexAll[targetIndex].firstChild.figure.type === `king` &&
+            //   this.color === hexAll[targetIndex].firstChild.figure.color
+            // ) {
+            //   possibleMove.push(targetIndex);
+            //   break;
+            // }
+            else {
               // If the square is not empty, stop checking in this direction
               break;
             }
@@ -269,6 +271,44 @@ class Figure {
             ) {
               possibleMove.push(targetIndex);
             }
+          }
+        }
+
+        // Check for castling moves
+        if (this.fresh) {
+          console.log(`check rochade`);
+
+          // Check kingside castling
+          const kingsideRookPosition = this.color === "white" ? 63 : 7;
+          console.log(`PIES PIES`, kingsideRookPosition);
+
+          const kingsideRook = kingsideRookPosition;
+
+          if (
+            kingsideRook &&
+            hexAll[kingsideRook].firstChild.figure.type === "rook" &&
+            hexAll[kingsideRook].firstChild.figure.fresh &&
+            hexAll[this.place + 1].childElementCount === 0 &&
+            hexAll[this.place + 2].childElementCount === 0
+          ) {
+            rookRochadePosition = this.place + 2;
+            possibleMove.push(this.place + 2);
+          }
+
+          // Check queenside castling
+          const queensideRookPosition = this.color === "white" ? 56 : 0;
+          const queensideRook = queensideRookPosition;
+
+          if (
+            queensideRook &&
+            hexAll[queensideRook].firstChild.figure.type === "rook" &&
+            hexAll[queensideRook].firstChild.figure.fresh &&
+            hexAll[this.place - 1].childElementCount === 0 &&
+            hexAll[this.place - 2].childElementCount === 0 &&
+            hexAll[this.place - 3].childElementCount === 0
+          ) {
+            rookRochadePosition = this.place - 2;
+            possibleMove.push(this.place - 2);
           }
         }
 
