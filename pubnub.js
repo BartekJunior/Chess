@@ -71,7 +71,7 @@ const setupPubNub = () => {
       if (messageEvent.publisher !== player.name && typeof(messageEvent.message.description) !== `string`) {
         handleMove(messageEvent);
         player.changeTurn();
-        // player.activateTurn();
+        player.activateTurn();
 
       } 
         
@@ -89,7 +89,7 @@ const setupPubNub = () => {
         let turn = event.occupancy === 1 ? true : false;
         if (event.uuid === UUID) {
           player = new Player(event.uuid, event.occupancy, color, turn);
-          // player.activateTurn();
+          player.activateTurn();
 
           if (player.nr === 1)
             lootPlayer1title.firstChild.innerHTML = player.name + ` loot`;

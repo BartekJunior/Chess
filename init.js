@@ -16,8 +16,6 @@ const lootPlayer2title = document.querySelector(`.loot-player2-title`);
 const gameContainer = document.querySelector(`.game-container`);
 const info = document.querySelector(`.h3-info`);
 
-
-
 // Show Clicked square //
 hexAll.forEach((el, index) => {
   el.addEventListener(`click`, function () {
@@ -92,9 +90,16 @@ new Figure(`rook`, 63, `white`, true);
 const figures = document.querySelectorAll(`.figure`);
 
 
+
+
+
 let tempFigureData = [];
 let possibleMove = [];
-let rookRochadePosition;
+
+let rochadePositionKingside;
+let rochadePositionQueenside;
+let kingsideRook;
+let queensideRook;
 
 
 // DROP DROP DROP DROP DROP DROP //
@@ -109,23 +114,44 @@ hexAll.forEach((el, index) => {
     event.preventDefault();
     tempFigureData.push(index);
 
-    if (el.move) {
+    if (el.move && !el.rochade) {
+      
       if (el.childElementCount > 0) {
-        Figure.prototype.beat(index)
-        console.log(`This Was a good beat!`);
+        Figure.prototype.beat(index);
       }
+
 
       new Figure(tempFigureData[0], index, tempFigureData[2], false);
       hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
 
-      // console.log(`DOBRY RUCH`);
 
-      // console.log(`just before sending hmm`);
       publishMessage(tempFigureData);
       player.changeTurn();
-      // player.activateTurn();
+      player.activateTurn();
 
-    } else {
+    } 
+
+
+    if (el.rochade) {
+  
+      if (rochadePositionKingside) {
+        new Figure(tempFigureData[0], index, tempFigureData[2], false);
+        hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+        hexAll[kingsideRook].firstChild.figure.removeFigure();
+        new Figure(`rook`, rochadePositionKingside - 1, tempFigureData[2], false);
+      } else if (rochadePositionQueenside) {
+
+        new Figure(tempFigureData[0], index, tempFigureData[2], false);
+        hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+        hexAll[queensideRook].firstChild.figure.removeFigure();
+        new Figure(`rook`, rochadePositionQueenside + 1, tempFigureData[2], false);
+      }
+
+      Figure.prototype.removeRochade();
+    }
+    
+    
+    else {
       console.log(`ZLY RUCH`);
     }
 
@@ -133,7 +159,6 @@ hexAll.forEach((el, index) => {
     // Figure.prototype.hideMove(possibleMove);
     // tempFigureData = [];
     // possibleMove = [];
-
   });
 });
 
@@ -149,4 +174,6 @@ window.addEventListener("drop", function (event) {
   Figure.prototype.hideMove(possibleMove);
   tempFigureData = [];
   possibleMove = [];
+  Figure.prototype.removeRochadeData();
+
 });

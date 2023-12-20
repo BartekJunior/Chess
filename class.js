@@ -86,6 +86,7 @@ class Figure {
       const died = hexAll[index].firstChild.figure.figureElement;
       if (died.figure.color === `black`) lootPlayer1.appendChild(died);
       if (died.figure.color === `white`) lootPlayer2.appendChild(died);
+      console.log(`This Was a good beat!`);
 
       if (died.figure.type === `king` && died.figure.color === player.color)
         alert(`CHECK MATE!!! YOU LOOSE!!!`);
@@ -276,13 +277,11 @@ class Figure {
 
         // Check for castling moves
         if (this.fresh) {
-          console.log(`check rochade`);
-
           // Check kingside castling
-          const kingsideRookPosition = this.color === "white" ? 63 : 7;
-          console.log(`PIES PIES`, kingsideRookPosition);
+          kingsideRook = this.color === "white" ? 63 : 7;
+          console.log(`rochade possible, rook index:`, kingsideRook);
 
-          const kingsideRook = kingsideRookPosition;
+          // const kingsideRook = kingsideRookPosition;
 
           if (
             kingsideRook &&
@@ -291,13 +290,16 @@ class Figure {
             hexAll[this.place + 1].childElementCount === 0 &&
             hexAll[this.place + 2].childElementCount === 0
           ) {
-            rookRochadePosition = this.place + 2;
+            rochadePositionKingside = this.place + 2;
+            hexAll[rochadePositionKingside].rochade = true;
             possibleMove.push(this.place + 2);
           }
 
           // Check queenside castling
-          const queensideRookPosition = this.color === "white" ? 56 : 0;
-          const queensideRook = queensideRookPosition;
+          queensideRook = this.color === "white" ? 56 : 0;
+          console.log(`rochade possible, rook index:`, queensideRook);
+
+          // const queensideRook = queensideRookPosition;
 
           if (
             queensideRook &&
@@ -307,7 +309,8 @@ class Figure {
             hexAll[this.place - 2].childElementCount === 0 &&
             hexAll[this.place - 3].childElementCount === 0
           ) {
-            rookRochadePosition = this.place - 2;
+            rochadePositionQueenside = this.place - 2;
+            hexAll[rochadePositionQueenside].rochade = true;
             possibleMove.push(this.place - 2);
           }
         }
@@ -412,5 +415,21 @@ class Figure {
         }
       }
     };
+
+    Figure.prototype.removeRochadeData = function () {
+
+      hexAll.forEach(el => {
+        if (el.rochade) delete el.rochade;
+      })
+
+      rochadePositionKingside = undefined;
+      rochadePositionQueenside = undefined;
+      kingsideRook = undefined;
+      queensideRook = undefined;
+    };
+
   }
+
+
+
 }
