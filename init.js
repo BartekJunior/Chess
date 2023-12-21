@@ -133,7 +133,7 @@ hexAll.forEach((el, index) => {
 
 
     if (el.rochade) {
-  
+
       if (rochadePositionKingside) {
         new Figure(tempFigureData[0], index, tempFigureData[2], false);
         hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
@@ -149,13 +149,13 @@ hexAll.forEach((el, index) => {
 
       Figure.prototype.removeRochade();
     }
-    
+
     
     else {
       console.log(`ZLY RUCH`);
     }
 
-    // console.log(`just before deleting tempFigureData`);
+// console.log(`just before deleting tempFigureData`);
     // Figure.prototype.hideMove(possibleMove);
     // tempFigureData = [];
     // possibleMove = [];
