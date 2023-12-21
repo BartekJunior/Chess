@@ -15,7 +15,7 @@ body {
 .game-container {
   display: flex;
   justify-content: space-around;
-  margin-left: 80px;
+  margin: 0 auto;
 }
 
 .chat-global {
@@ -153,4 +153,85 @@ i {
 
 .yellow {
   background-color: yellow !important;
+}
+
+
+/****** MOBILE ******/
+/* Add a media query for smaller screens (max-width: 768px) */
+@media screen and (max-width: 768px) {
+
+  body {
+    padding: 5px;
+  }
+
+  .global-container {
+    width: 99%;
+    margin: 0 auto;
+    flex-direction: column;
+  }
+
+  .game-container {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+    flex-direction: column; /* Stack game container items vertically on small screens */
+  }
+
+  .chat-global {
+    width: 100%; 
+    margin-bottom: 10px; /
+  }
+
+  .loot-global {
+    display: none;
+  }
+
+  .header {
+    flex-direction: column; /* Stack header items vertically on small screens */
+    height: auto; 
+  }
+
+  .player-container {
+    height: auto;
+    margin-bottom: 5px; 
+  }
+
+  .header {
+    width: 100%;
+  }
+
+  .h1-header,
+  .h3-info {
+    text-align: center;
+  }
+
+  .board {
+    width: 100%;
+    margin: 0;
+    grid-template-columns: repeat(8, 12vw);
+    grid-template-rows: repeat(8, 12vw);
+    /* border: 1px solid red; */
+  }
+
+  .figure {
+    width: 30px; 
+    height: 30px;
+    font-size: 7vw;
+  }
+
+  #sendButton {
+    width: 100%; 
+    margin-top: 5px; 
+  }
+
+  #message-body {
+    width: 100%;
+  }
+
+  #messages {
+    max-height: 200px; 
+    overflow-y: auto; 
+  }
+
+
 }
