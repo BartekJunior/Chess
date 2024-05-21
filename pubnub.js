@@ -58,10 +58,12 @@ const handleMove = (messageEvent) => {
 
   hexAll[tempFigureData[1]].classList.add(`fade-move`);
   hexAll[tempFigureData[3]].classList.add(`fade-move`);
+
   setTimeout(() => {
-    hexAll[tempFigureData[1]].classList.remove(`fade-move`);
-    hexAll[tempFigureData[3]].classList.remove(`fade-move`);
-  }, 6000);
+    hexAll.forEach(el => {
+      el.classList.remove(`fade-move`)
+    })
+  }, 7000);
 
 
   // console.log(`move was handeled`);
