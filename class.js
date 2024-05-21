@@ -57,17 +57,10 @@ class Figure {
 
     // DRAG START
     this.figureElement.addEventListener("dragstart", function (event) {
-      // console.log(`figure.color`, this.figure.color);
-
       if (player.color === this.figure.color) {
         // event.dataTransfer.setData("text/plain", "Drag me!");
         const figure = this.figure;
-        tempFigureData = [
-          figure.type,
-          figure.place,
-          figure.color,
-          // figure.figureElement,
-        ];
+        tempFigureData = [figure.type, figure.place, figure.color];
 
         if (tempFigureData[0] === `pawn`) this.figure.pawnMove();
         if (tempFigureData[0] === `rook`) this.figure.rookMove();
@@ -82,15 +75,23 @@ class Figure {
       this.figureElement.remove();
     };
 
+    // JA PIERDSOLE BARTAS! CALA FUKNCJA RYSOWANIA RUCHU PRZECIWNIKA POWINNA BYC ZAKODOWANA RAZ I TYLKO JEDEN RAZ!!!!!!!!!!!!!! 
+    // A NIE ZE TY BEDZIESZ JA ROBIL OSOBNO DLA ZWYKLEGO RUCHU, ROSZADY I PROMOCJI 
+    // BO POZNIEJ DO CHUJA WAFLA BEDZIESZ CHCIAL DOKLADAC RUCHYU MORDO!!!!
+
     Figure.prototype.beat = function (index) {
-      const died = hexAll[index].firstChild.figure.figureElement;
-      if (died.figure.color === `black`) lootPlayer1.appendChild(died);
-      if (died.figure.color === `white`) lootPlayer2.appendChild(died);
+      const died = hexAll[index].firstChild.figure;
+      
+      died.removeFigure();
+      console.log(died);
+      
+      if (died.color === `black`) lootPlayer1.appendChild(died.figureElement);
+      if (died.color === `white`) lootPlayer2.appendChild(died.figureElement);
       console.log(`This Was a good beat!`);
 
-      if (died.figure.type === `king` && died.figure.color === player.color)
+      if (died.type === `king` && died.color === player.color)
         alert(`CHECK MATE!!! YOU LOOSE!!!`);
-      if (died.figure.type === `king` && died.figure.color !== player.color)
+      if (died.type === `king` && died.color !== player.color)
         alert(`CHECK MATE!!! YOU WIN!!!!!!!!!!!!!!!`);
 
       // hexAll[index].firstChild.figure.removeFigure();
@@ -139,14 +140,10 @@ class Figure {
         )
           possibleMove.push(this.place + 7 * direction);
 
-
-
         for (let i = 0; i < possibleMove.length; i++) {
           if (possibleMove[i] >= 0 && possibleMove[i] < 64)
             this.showMove(possibleMove[i]);
         }
-
-
       }
     };
 

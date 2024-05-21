@@ -23,7 +23,13 @@ hexAll.forEach((el, index) => {
   });
 });
 
-// Draw all Board //
+
+
+
+// DRAW ALL BOARD AND PLACE FIGURES //
+// DRAW ALL BOARD AND PLACE FIGURES //
+// DRAW ALL BOARD AND PLACE FIGURES //
+
 const drawWhiteSquare = function () {
   hexAll.forEach((el, index) => {
     if (
@@ -48,7 +54,6 @@ const drawWhiteSquare = function () {
 
 drawWhiteSquare();
 
-// DRAW ALL START FIGURES //
 new Figure(`rook`, 0, `black`, true);
 new Figure(`knight`, 1, `black`, true);
 new Figure(`bishop`, 2, `black`, true);
@@ -81,17 +86,21 @@ new Figure(`knight`, 57, `white`, true);
 new Figure(`bishop`, 58, `white`, true);
 new Figure(`queen`, 59, `white`, true);
 new Figure(`king`, 60, `white`, true);
-new Figure(`bishop`, 61, `white`, true);
-new Figure(`knight`, 62, `white`, true);
+// new Figure(`bishop`, 61, `white`, true);
+// new Figure(`knight`, 62, `white`, true);
 new Figure(`rook`, 63, `white`, true);
 
-// new Figure(`rook`, 28, `white`);
 
+// DRAW ALL BOARD AND PLACE FIGURES //
+// DRAW ALL BOARD AND PLACE FIGURES //
+// DRAW ALL BOARD AND PLACE FIGURES //
+
+
+
+
+
+// ALL variables for possible figure moves
 const figures = document.querySelectorAll(`.figure`);
-
-
-
-
 
 let tempFigureData = [];
 let possibleMove = [];
@@ -135,6 +144,10 @@ hexAll.forEach((el, index) => {
 
 
     if (el.rochade) {
+      // add rochade string for diagnost rochade move
+      tempFigureData.push(`rochade`);
+      console.log(tempFigureData);
+      
 
       if (rochadePositionKingside) {
         new Figure(tempFigureData[0], index, tempFigureData[2], false);
@@ -154,6 +167,8 @@ hexAll.forEach((el, index) => {
       publishMessage(tempFigureData);
       player.changeTurn();
       player.activateTurn();
+
+
     }
 
     

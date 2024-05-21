@@ -2,7 +2,7 @@ document.addEventListener(`keydown`, function (event) {
   if (event.key === `Enter`) buttonClick();
 });
 
-const chatGlobal = document.querySelector('.chat-global');
+const chatGlobal = document.querySelector(".chat-global");
 
 ////// LISTENERS FUNCTIONS ///////
 
@@ -19,7 +19,6 @@ const showMessage = (messageEvent) => {
   if (messageEvent.publisher === UUID) msgContainer.classList.add(`msg-color1`);
   if (messageEvent.publisher !== UUID) msgContainer.classList.add(`msg-color2`);
 
-
   const publisher = document.createElement("div");
   publisher.classList.add(`chat-publisher`, `chat-msg`);
   publisher.innerText = messageEvent.publisher + `:`;
@@ -34,41 +33,74 @@ const showMessage = (messageEvent) => {
 
   chatGlobal.scrollTop = chatGlobal.scrollHeight;
 
-   // Play sound after appending message to DOM
-   const audio = new Audio('img/click.mp3'); // Replace 'message-sound.mp3' with the path to your sound file
-   audio.play();
-  
+  // Play sound after appending message
+  const audio = new Audio("img/click.mp3"); // Replace 'message-sound.mp3' with the path to your sound file
+  audio.play();
 };
 
 
 
+
+// What you see after opponent move
 const handleMove = (messageEvent) => {
   tempFigureData = messageEvent.message.description;
   console.log(`tempFigureData is`, tempFigureData);
 
-  if (hexAll[tempFigureData[3]].childElementCount > 0) {
+  // when the opponent make a simple move
+  if (hexAll[tempFigureData[3]].childElementCount === 0) {
+    console.log(`simple move`);
+    
+    new Figure(tempFigureData[0], tempFigureData[3], tempFigureData[2], false);
+    hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+  }
+
+  // when the opponent beats
+  // NIE DZIALA BO METODA BEAT JEST NAPISANA JEDNA DLA OBU GRACZY - SPRAWDZ Figure.prototype.beat
+  else if (hexAll[tempFigureData[3]].childElementCount > 0) {
     Figure.prototype.beat(tempFigureData[3]);
   }
 
-  new Figure(tempFigureData[0], tempFigureData[3], tempFigureData[2], false);
-  hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+
+  // when opponent rochade
+  if (tempFigureData[4] === `rochade`) {
+    console.log(`rochade!!!!!!!!!!!!!!!!`);
+
+
+  if (tempFigureData[3] === 62) {
+    console.log(`hmmmm`);
+    
+    // new Figure(tempFigureData[0], index, tempFigureData[2], false);
+    // hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+    // hexAll[[tempFigureData[3]]+1].firstChild.figure.removeFigure();
+    // new Figure(`rook`, [tempFigureData[3] - 1], tempFigureData[2], false);
+
+    hexAll[63].firstChild.figure.removeFigure();
+    new Figure(`rook`, 61, tempFigureData[2], false);
+
+    
+
+  } 
+}
+
+
+  Figure.prototype.removeRochadeData();
+
+
+
 
 
   // Adds color for moved Figures to know where opponent moved
-
   hexAll[tempFigureData[1]].classList.add(`fade-move`);
   hexAll[tempFigureData[3]].classList.add(`fade-move`);
 
   setTimeout(() => {
-    hexAll.forEach(el => {
-      el.classList.remove(`fade-move`)
-    })
+    hexAll.forEach((el) => {
+      el.classList.remove(`fade-move`);
+    });
   }, 7000);
 
-  const audio = new Audio('img/move.mp3'); // Replace 'message-sound.mp3' with the path to your sound file
-   audio.play();
-
-
+  // const audio = new Audio("img/move.mp3"); // Replace 'message-sound.mp3' with the path to your sound file
+  // audio.play();
 };
 
 let pubnub;
@@ -91,17 +123,22 @@ const setupPubNub = () => {
 
     message: (messageEvent) => {
       // showMessage(messageEvent.message.description);
-      if (typeof(messageEvent.message.description) === `string`)
-      showMessage(messageEvent);
+      if (typeof messageEvent.message.description === `string`)
+        showMessage(messageEvent);
 
-      if (messageEvent.publisher !== player.name && typeof(messageEvent.message.description) !== `string`) {
+      if (
+        messageEvent.publisher !== player.name &&
+        typeof messageEvent.message.description !== `string`
+      ) {
         handleMove(messageEvent);
         player.changeTurn();
         player.activateTurn();
+      }
 
-      } 
-        
-      console.log(`messageEvent.message.description`, messageEvent.message.description);
+      console.log(
+        `messageEvent.message.description`,
+        messageEvent.message.description
+      );
     },
 
     presence: (event) => {
@@ -113,7 +150,7 @@ const setupPubNub = () => {
         // SET PLAYER in const PLAYER //
         let color = event.uuid == 1 ? `white` : `black`;
         let turn = event.uuid == 1 ? true : false;
-        
+
         if (event.uuid === UUID) {
           player = new Player(event.uuid, event.uuid, color, turn);
           player.activateTurn();
@@ -154,7 +191,3 @@ const publishMessage = async (message) => {
   };
   await pubnub.publish(publishPayload);
 };
-
-
-
-
