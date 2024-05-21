@@ -53,6 +53,17 @@ const handleMove = (messageEvent) => {
   new Figure(tempFigureData[0], tempFigureData[3], tempFigureData[2], false);
   hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
 
+
+  // Adds color for moved Figures to know where opponent moved
+
+  hexAll[tempFigureData[1]].classList.add(`fade-move`);
+  hexAll[tempFigureData[3]].classList.add(`fade-move`);
+  setTimeout(() => {
+    hexAll[tempFigureData[1]].classList.remove(`fade-move`);
+    hexAll[tempFigureData[3]].classList.remove(`fade-move`);
+  }, 8000);
+
+
   // console.log(`move was handeled`);
 };
 

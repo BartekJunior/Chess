@@ -6,6 +6,16 @@ body {
   pointer-events: none;
 }
 
+.fade-move {
+  background-color: rgb(145, 145, 5); /* Przykładowy kolor */
+  animation: fadeOut 8s forwards;
+}
+
+@keyframes fadeOut {
+  0% { background-color: rgb(145, 145, 5); }
+  100% { background-color: transparent; }
+}
+
 /* PUBNUB */
 .global-container {
   display: flex;
