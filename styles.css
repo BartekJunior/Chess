@@ -8,13 +8,13 @@ body {
 
 .fade-move {
   background-color: violet; /* Przykładowy kolor */
-  animation: fadeOut 6s;
+  /* animation: fadeOut 6s forwards; */
 }
 
-@keyframes fadeOut {
+/* @keyframes fadeOut {
   0% { background-color: violet; }
   100% { background-color: transparent; }
-}
+} */
 
 /* PUBNUB */
 .global-container {
