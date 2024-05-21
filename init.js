@@ -114,7 +114,7 @@ hexAll.forEach((el, index) => {
     event.preventDefault();
     tempFigureData.push(index);
 
-    if (el.move && !el.rochade) {
+    if (el.move && !el.rochade && !el.promotion) {
       
       if (el.childElementCount > 0) {
         Figure.prototype.beat(index);
@@ -127,7 +127,11 @@ hexAll.forEach((el, index) => {
       player.changeTurn();
       player.activateTurn();
 
-    } 
+    }
+
+    // if (el.promotion) {
+    //   new Figure(`queen`, index, tempFigureData[2], false);
+    // }
 
 
     if (el.rochade) {

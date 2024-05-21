@@ -2,6 +2,8 @@ document.addEventListener(`keydown`, function (event) {
   if (event.key === `Enter`) buttonClick();
 });
 
+const chatGlobal = document.querySelector('.chat-global');
+
 ////// LISTENERS FUNCTIONS ///////
 
 const buttonClick = () => {
@@ -29,7 +31,16 @@ const showMessage = (messageEvent) => {
   document.getElementById("messages").appendChild(msgContainer);
   msgContainer.appendChild(publisher);
   msgContainer.appendChild(message);
+
+  chatGlobal.scrollTop = chatGlobal.scrollHeight;
+
+   // Play sound after appending message to DOM
+   const audio = new Audio('img/click.mp3'); // Replace 'message-sound.mp3' with the path to your sound file
+   audio.play();
+  
 };
+
+
 
 const handleMove = (messageEvent) => {
   tempFigureData = messageEvent.message.description;

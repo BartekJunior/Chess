@@ -115,16 +115,17 @@ class Figure {
         // Dla piona białego (white) ruch jest do gory (-1), dla piona czarnego (black) ruch jest w dół (+1)
         const direction = this.color === "white" ? -1 : 1;
 
+        // Simple move and double move for pawn
         if (hexAll[this.place + 8 * direction].childElementCount === 0) {
           possibleMove.push(this.place + 8 * direction);
 
-          if (
-            hexAll[this.place + 16 * direction].childElementCount === 0 &&
-            this.fresh === undefined
-          )
-            possibleMove.push(this.place + 16 * direction);
+          if (this.fresh) {
+            if (hexAll[this.place + 16 * direction].childElementCount === 0)
+              possibleMove.push(this.place + 16 * direction);
+          }
         }
 
+        // Beat for pawn
         if (
           hexAll[this.place + 9 * direction].childElementCount > 0 &&
           hexAll[this.place + 9 * direction].firstChild.figure.color !==
@@ -138,10 +139,14 @@ class Figure {
         )
           possibleMove.push(this.place + 7 * direction);
 
+
+
         for (let i = 0; i < possibleMove.length; i++) {
           if (possibleMove[i] >= 0 && possibleMove[i] < 64)
             this.showMove(possibleMove[i]);
         }
+
+
       }
     };
 
@@ -172,16 +177,7 @@ class Figure {
             ) {
               possibleMove.push(targetIndex);
               break;
-            }
-            // else if (
-            //   // rook can move into players king for rochade //
-            //   hexAll[targetIndex].firstChild.figure.type === `king` &&
-            //   this.color === hexAll[targetIndex].firstChild.figure.color
-            // ) {
-            //   possibleMove.push(targetIndex);
-            //   break;
-            // }
-            else {
+            } else {
               // If the square is not empty, stop checking in this direction
               break;
             }
@@ -280,7 +276,6 @@ class Figure {
           // Check kingside castling
           kingsideRook = this.color === "white" ? 63 : 7;
           console.log(`rochade possible, rook index:`, kingsideRook);
-
 
           if (
             kingsideRook &&
@@ -416,19 +411,14 @@ class Figure {
     };
 
     Figure.prototype.removeRochadeData = function () {
-
-      hexAll.forEach(el => {
+      hexAll.forEach((el) => {
         if (el.rochade) delete el.rochade;
-      })
+      });
 
       rochadePositionKingside = undefined;
       rochadePositionQueenside = undefined;
       kingsideRook = undefined;
       queensideRook = undefined;
     };
-
   }
-
-
-
 }
