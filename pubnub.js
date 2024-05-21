@@ -65,8 +65,10 @@ const handleMove = (messageEvent) => {
     })
   }, 7000);
 
+  const audio = new Audio('img/move.mp3'); // Replace 'message-sound.mp3' with the path to your sound file
+   audio.play();
 
-  // console.log(`move was handeled`);
+
 };
 
 let pubnub;
