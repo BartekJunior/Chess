@@ -239,8 +239,8 @@ i {
 
 
 .fade-move {
-  background-color: violet !important; /* Przykładowy kolor */
-  animation: fadeOut 6s forwards;
+  background-color: violet; /* Przykładowy kolor */
+  animation: fadeOut 7s forwards;
 }
 
 @keyframes fadeOut {
