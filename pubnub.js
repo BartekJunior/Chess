@@ -61,7 +61,7 @@ const handleMove = (messageEvent) => {
   setTimeout(() => {
     hexAll[tempFigureData[1]].classList.remove(`fade-move`);
     hexAll[tempFigureData[3]].classList.remove(`fade-move`);
-  }, 8000);
+  }, 6000);
 
 
   // console.log(`move was handeled`);
@@ -110,7 +110,7 @@ const setupPubNub = () => {
         let color = event.occupancy === 1 ? `white` : `black`;
         let turn = event.occupancy === 1 ? true : false;
         if (event.uuid === UUID) {
-          player = new Player(event.uuid, event.occupancy, color, turn);
+          player = new Player(event.uuid, event.uuid, color, turn);
           player.activateTurn();
 
           if (player.nr === 1)

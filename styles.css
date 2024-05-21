@@ -7,12 +7,12 @@ body {
 }
 
 .fade-move {
-  background-color: rgb(145, 145, 5); /* Przykładowy kolor */
-  animation: fadeOut 8s forwards;
+  background-color: violet; /* Przykładowy kolor */
+  animation: fadeOut 6s;
 }
 
 @keyframes fadeOut {
-  0% { background-color: rgb(145, 145, 5); }
+  0% { background-color: violet; }
   100% { background-color: transparent; }
 }
 
