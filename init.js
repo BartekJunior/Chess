@@ -120,10 +120,8 @@ hexAll.forEach((el, index) => {
         Figure.prototype.beat(index);
       }
 
-
       new Figure(tempFigureData[0], index, tempFigureData[2], false);
       hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
-
 
       publishMessage(tempFigureData);
       player.changeTurn();
@@ -147,7 +145,11 @@ hexAll.forEach((el, index) => {
         new Figure(`rook`, rochadePositionQueenside + 1, tempFigureData[2], false);
       }
 
-      Figure.prototype.removeRochade();
+      Figure.prototype.removeRochadeData();
+
+      publishMessage(tempFigureData);
+      player.changeTurn();
+      player.activateTurn();
     }
 
     

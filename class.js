@@ -281,7 +281,6 @@ class Figure {
           kingsideRook = this.color === "white" ? 63 : 7;
           console.log(`rochade possible, rook index:`, kingsideRook);
 
-          // const kingsideRook = kingsideRookPosition;
 
           if (
             kingsideRook &&
