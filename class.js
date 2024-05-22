@@ -9,7 +9,6 @@ class Player {
 
     Player.prototype.changeTurn = function () {
       this.turn = !this.turn;
-      // console.log(`player.changeTurn Done`);
     };
 
     Player.prototype.activateTurn = function () {
@@ -97,39 +96,70 @@ class Figure {
       // hexAll[index].firstChild.figure.removeFigure();
     };
 
+    // Figure.prototype.copyBoard = function () {
+    //   boardContent = [];
+    //   boardContent = Array.from(document.querySelectorAll(`.figure`));
+    //   console.log(`boiard after copied is`, typeof(boardContent));
+    // };
+
     Figure.prototype.copyBoard = function () {
-
       boardContent = [];
-      boardContent = Array.from(document.querySelectorAll(`.figure`));
-      
-      hexAll.forEach((el, index) => {
-        if (el.firstChild) {
-          // console.log(Boolean(el.firstChild));
+      const figures = Array.from(document.querySelectorAll(".figure")).map(
+        (figureElement) => figureElement.figure
+      );
 
-          el.firstChild.figure.removeFigure();
-        }
+      figures.forEach((figure) => {
+        const figureData = {
+          type: figure.type,
+          place: figure.place,
+          color: figure.color,
+          fresh: figure.fresh,
+        };
+        boardContent.push(figureData);
       });
+
+      console.log(`Board after copied:`, boardContent);
     };
 
 
     Figure.prototype.pasteBoard = function () {
-      for (let index = 0; index < 64; index++) { // Iterujemy dokładnie przez 64 pola szachownicy
-        boardContent.forEach(figureEl => {
-          if (figureEl.figure.place === index) { // Sprawdzamy, czy figura znajduje się na bieżącym polu
-            new Figure(
-              figureEl.figure.type,
-              figureEl.figure.place,
-              figureEl.figure.color,
-              figureEl.figure.fresh,
-              figureEl.figure.figureElement
-            );
-            // console.log(`New Figure added - `, figureEl.figure, index); 
-          }
-        });
-      }
+      // Remove any existing figures from the board
+      hexAll.forEach(hex => {
+        if (hex.firstChild) {
+          hex.firstChild.figure.removeFigure();
+        }
+      });
+    
+      // Iterate over each figure in boardContent and create a new Figure object
+      boardContent.forEach(figureData => {
+        const { type, place, color, fresh } = figureData;
+        new Figure(type, place, color, fresh);
+      });
+      boardContent = [];
     };
     
 
+
+
+    // Figure.prototype.pasteBoard = function () {
+    //   hexAll.forEach((el) => {
+    //     if (el.firstChild) {
+    //       el.firstChild.figure.removeFigure();
+    //     }
+    //   });
+
+    //   boardContent.forEach((figureEl) => {
+    //     if (figureEl.figure.place === index) {
+    //       new Figure(
+    //         figureEl.figure.type,
+    //         figureEl.figure.place,
+    //         figureEl.figure.color,
+    //         figureEl.figure.fresh,
+    //         figureEl.figure.figureElement
+    //       );
+    //     }
+    //   });
+    // };
 
 
 

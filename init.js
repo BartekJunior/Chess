@@ -136,13 +136,16 @@ hexAll.forEach((el, index) => {
       new Figure(tempFigureData[0], index, tempFigureData[2], false);
       hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
 
+
+      Figure.prototype.copyBoard();
+      // Figure.prototype.pasteBoard();
+
       publishMessage(boardContent);
       console.log(`board content published`);
+      boardContent = [];
       
       player.changeTurn();
       player.activateTurn();
-
-
     }
 
 
@@ -170,17 +173,10 @@ hexAll.forEach((el, index) => {
       player.activateTurn();
     }
 
-    
-    else {
-      console.log(`ZLY RUCH`);
-    }
-
-    Figure.prototype.copyBoard();
-    Figure.prototype.pasteBoard();
-
 
 
   });
+
 });
 
 

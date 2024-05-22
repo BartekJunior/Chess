@@ -39,8 +39,11 @@ const showMessage = (messageEvent) => {
 
 // What you see after opponent move
 const handleMove = (messageEvent) => {
-  boardContent = messageEvent.message.description;
-  console.log(`boardContent is`, boardContent);
+  // boardContent = messageEvent.message.description;
+  console.log(`yesyes` ,boardContent);
+
+  Figure.prototype.pasteBoard();
+  
 
   // when the opponent make a simple move
   // if (hexAll[tempFigureData[3]].childElementCount === 0) {
@@ -96,11 +99,13 @@ const setupPubNub = () => {
         typeof messageEvent.message.description !== `string`
       ) {
 
+        // BOARD CONTENT CAPTURED BY PLAYER2 AFTER PLAYER1 MOVE //
         boardContent = messageEvent.message.description;
 
-
         console.log(`boardContent`, boardContent);
+        // PLAYER2 BOARD EXECUTES ALL DATA FROM PLAYER1 AND SHOW IT ON BOARD //
         handleMove(messageEvent);
+
         player.changeTurn();
         player.activateTurn();
       }
@@ -144,13 +149,18 @@ const setupPubNub = () => {
   });
 };
 
+
+
+
 // run after page is loaded
 window.onload = setupPubNub;
 
+
 // publish message
-const publishMessage = async (message) => {
-  // With the right payload, you can publish a message, add a reaction to a message,
+ // With the right payload, you can publish a message, add a reaction to a message,
   // send a push notification, or send a small payload called a signal.
+
+const publishMessage = async (message) => {
   const publishPayload = {
     channel: "hello_world",
     message: {
@@ -160,3 +170,12 @@ const publishMessage = async (message) => {
   };
   await pubnub.publish(publishPayload);
 };
+
+
+
+
+
+
+
+
+
