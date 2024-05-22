@@ -98,9 +98,10 @@ class Figure {
     };
 
     Figure.prototype.copyBoard = function () {
-      figures = [];
-      figures = Array.from(document.querySelectorAll(`.figure`));
 
+      boardContent = [];
+      boardContent = Array.from(document.querySelectorAll(`.figure`));
+      
       hexAll.forEach((el, index) => {
         if (el.firstChild) {
           // console.log(Boolean(el.firstChild));
@@ -111,29 +112,9 @@ class Figure {
     };
 
 
-
-
-    // Figure.prototype.pasteBoard = function () {
-    //   hexAll.forEach((el, index) => {
-    //     figures.forEach((el) => {
-    //       if (el.figure.place === index)
-    //         new Figure(
-    //           el.figure.type,
-    //           el.figure.place,
-    //           el.figure.color,
-    //           el.figure.fresh,
-    //           el.figure.figureElement
-    //         );
-    //       console.log(`New Figure aadded - `, el.figure, index);
-    //     });
-    //   });
-    // };
-
-
-
     Figure.prototype.pasteBoard = function () {
       for (let index = 0; index < 64; index++) { // Iterujemy dokładnie przez 64 pola szachownicy
-        figures.forEach(figureEl => {
+        boardContent.forEach(figureEl => {
           if (figureEl.figure.place === index) { // Sprawdzamy, czy figura znajduje się na bieżącym polu
             new Figure(
               figureEl.figure.type,
@@ -142,7 +123,7 @@ class Figure {
               figureEl.figure.fresh,
               figureEl.figure.figureElement
             );
-            console.log(`New Figure added - `, figureEl.figure, index); // Logujemy informacje o nowej figurze
+            // console.log(`New Figure added - `, figureEl.figure, index); 
           }
         });
       }

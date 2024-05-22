@@ -97,12 +97,16 @@ new Figure(`rook`, 63, `white`, true);
 
 
 
+// ALL VARIABLES FOR FIGURE MOVE
+// ALL VARIABLES FOR FIGURE MOVE
+// ALL VARIABLES FOR FIGURE MOVE
 
+// boardContent contains ALL Figures on board, used for send the whole board to another player via PubNub
+let boardContent = [];
 
-// ALL variables for possible figure moves
-let figures = document.querySelectorAll(`.figure`);
-
+// tempFigureData contains all DATA about moved figure and its used ONLY for current Player on his screen
 let tempFigureData = [];
+
 let possibleMove = [];
 
 let rochadePositionKingside;
@@ -132,24 +136,20 @@ hexAll.forEach((el, index) => {
       new Figure(tempFigureData[0], index, tempFigureData[2], false);
       hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
 
-      publishMessage(tempFigureData);
+      publishMessage(boardContent);
+      console.log(`board content published`);
+      
       player.changeTurn();
       player.activateTurn();
 
 
     }
 
-    // if (el.promotion) {
-    //   new Figure(`queen`, index, tempFigureData[2], false);
-    // }
-
 
     if (el.rochade) {
-      // add rochade string for diagnost rochade move
       tempFigureData.push(`rochade`);
       console.log(tempFigureData);
       
-
       if (rochadePositionKingside) {
         new Figure(tempFigureData[0], index, tempFigureData[2], false);
         hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
@@ -165,7 +165,7 @@ hexAll.forEach((el, index) => {
 
       Figure.prototype.removeRochadeData();
 
-      publishMessage(tempFigureData);
+      publishMessage(boardContent);
       player.changeTurn();
       player.activateTurn();
     }
@@ -179,10 +179,7 @@ hexAll.forEach((el, index) => {
     Figure.prototype.pasteBoard();
 
 
-// console.log(`just before deleting tempFigureData`);
-    // Figure.prototype.hideMove(possibleMove);
-    // tempFigureData = [];
-    // possibleMove = [];
+
   });
 });
 
@@ -196,7 +193,7 @@ window.addEventListener("drop", function (event) {
   event.preventDefault();
   // console.log(`just before deleting tempFigureData`);
   Figure.prototype.hideMove(possibleMove);
-  tempFigureData = [];
+  // tempFigureData = [];
   possibleMove = [];
   Figure.prototype.removeRochadeData();
 

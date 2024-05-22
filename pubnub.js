@@ -5,7 +5,6 @@ document.addEventListener(`keydown`, function (event) {
 const chatGlobal = document.querySelector(".chat-global");
 
 ////// LISTENERS FUNCTIONS ///////
-
 const buttonClick = () => {
   var input = document.getElementById("message-body");
   publishMessage(input.value);
@@ -38,70 +37,36 @@ const showMessage = (messageEvent) => {
   audio.play();
 };
 
-
-
-
 // What you see after opponent move
 const handleMove = (messageEvent) => {
-  tempFigureData = messageEvent.message.description;
-  console.log(`tempFigureData is`, tempFigureData);
+  boardContent = messageEvent.message.description;
+  console.log(`boardContent is`, boardContent);
 
   // when the opponent make a simple move
-  if (hexAll[tempFigureData[3]].childElementCount === 0) {
-    console.log(`simple move`);
-    
-    new Figure(tempFigureData[0], tempFigureData[3], tempFigureData[2], false);
-    hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
-  }
+  // if (hexAll[tempFigureData[3]].childElementCount === 0) {
+  //   console.log(`simple move`);
+
+  //   new Figure(tempFigureData[0], tempFigureData[3], tempFigureData[2], false);
+  //   hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+  // }
 
   // when the opponent beats
   // NIE DZIALA BO METODA BEAT JEST NAPISANA JEDNA DLA OBU GRACZY - SPRAWDZ Figure.prototype.beat
-  else if (hexAll[tempFigureData[3]].childElementCount > 0) {
-    Figure.prototype.beat(tempFigureData[3]);
-  }
-
-
-  // when opponent rochade
-  if (tempFigureData[4] === `rochade`) {
-    console.log(`rochade!!!!!!!!!!!!!!!!`);
-
-
-  if (tempFigureData[3] === 62) {
-    console.log(`hmmmm`);
-    
-    // new Figure(tempFigureData[0], index, tempFigureData[2], false);
-    // hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
-    // hexAll[[tempFigureData[3]]+1].firstChild.figure.removeFigure();
-    // new Figure(`rook`, [tempFigureData[3] - 1], tempFigureData[2], false);
-
-    hexAll[63].firstChild.figure.removeFigure();
-    new Figure(`rook`, 61, tempFigureData[2], false);
-
-    
-
-  } 
-}
-
-
-  Figure.prototype.removeRochadeData();
-
-
-
-
-
-  // Adds color for moved Figures to know where opponent moved
-  hexAll[tempFigureData[1]].classList.add(`fade-move`);
-  hexAll[tempFigureData[3]].classList.add(`fade-move`);
-
-  setTimeout(() => {
-    hexAll.forEach((el) => {
-      el.classList.remove(`fade-move`);
-    });
-  }, 7000);
-
-  // const audio = new Audio("img/move.mp3"); // Replace 'message-sound.mp3' with the path to your sound file
-  // audio.play();
+  // else if (hexAll[tempFigureData[3]].childElementCount > 0) {
+  //   Figure.prototype.beat(tempFigureData[3]);
+  // }
 };
+
+// Figure.prototype.removeRochadeData();
+
+// hexAll[tempFigureData[1]].classList.add(`fade-move`);
+// hexAll[tempFigureData[3]].classList.add(`fade-move`);
+
+// setTimeout(() => {
+//   hexAll.forEach((el) => {
+//     el.classList.remove(`fade-move`);
+//   });
+// }, 7000);
 
 let pubnub;
 
@@ -121,8 +86,8 @@ const setupPubNub = () => {
       }
     },
 
+
     message: (messageEvent) => {
-      // showMessage(messageEvent.message.description);
       if (typeof messageEvent.message.description === `string`)
         showMessage(messageEvent);
 
@@ -130,16 +95,20 @@ const setupPubNub = () => {
         messageEvent.publisher !== player.name &&
         typeof messageEvent.message.description !== `string`
       ) {
+
+        boardContent = messageEvent.message.description;
+
+
+        console.log(`boardContent`, boardContent);
         handleMove(messageEvent);
         player.changeTurn();
         player.activateTurn();
       }
 
-      console.log(
-        `messageEvent.message.description`,
-        messageEvent.message.description
-      );
     },
+
+
+
 
     presence: (event) => {
       console.log(`PRESENCE EVENT`, event);
