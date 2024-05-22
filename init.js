@@ -100,7 +100,7 @@ new Figure(`rook`, 63, `white`, true);
 
 
 // ALL variables for possible figure moves
-const figures = document.querySelectorAll(`.figure`);
+let figures = document.querySelectorAll(`.figure`);
 
 let tempFigureData = [];
 let possibleMove = [];
@@ -136,6 +136,7 @@ hexAll.forEach((el, index) => {
       player.changeTurn();
       player.activateTurn();
 
+
     }
 
     // if (el.promotion) {
@@ -167,14 +168,16 @@ hexAll.forEach((el, index) => {
       publishMessage(tempFigureData);
       player.changeTurn();
       player.activateTurn();
-
-
     }
 
     
     else {
       console.log(`ZLY RUCH`);
     }
+
+    Figure.prototype.copyBoard();
+    Figure.prototype.pasteBoard();
+
 
 // console.log(`just before deleting tempFigureData`);
     // Figure.prototype.hideMove(possibleMove);

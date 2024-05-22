@@ -75,16 +75,16 @@ class Figure {
       this.figureElement.remove();
     };
 
-    // JA PIERDSOLE BARTAS! CALA FUKNCJA RYSOWANIA RUCHU PRZECIWNIKA POWINNA BYC ZAKODOWANA RAZ I TYLKO JEDEN RAZ!!!!!!!!!!!!!! 
-    // A NIE ZE TY BEDZIESZ JA ROBIL OSOBNO DLA ZWYKLEGO RUCHU, ROSZADY I PROMOCJI 
+    // JA PIERDSOLE BARTAS! CALA FUKNCJA RYSOWANIA RUCHU PRZECIWNIKA POWINNA BYC ZAKODOWANA RAZ I TYLKO JEDEN RAZ!!!!!!!!!!!!!!
+    // A NIE ZE TY BEDZIESZ JA ROBIL OSOBNO DLA ZWYKLEGO RUCHU, ROSZADY I PROMOCJI
     // BO POZNIEJ DO CHUJA WAFLA BEDZIESZ CHCIAL DOKLADAC RUCHYU MORDO!!!!
 
     Figure.prototype.beat = function (index) {
       const died = hexAll[index].firstChild.figure;
-      
+
       died.removeFigure();
       console.log(died);
-      
+
       if (died.color === `black`) lootPlayer1.appendChild(died.figureElement);
       if (died.color === `white`) lootPlayer2.appendChild(died.figureElement);
       console.log(`This Was a good beat!`);
@@ -96,6 +96,61 @@ class Figure {
 
       // hexAll[index].firstChild.figure.removeFigure();
     };
+
+    Figure.prototype.copyBoard = function () {
+      figures = [];
+      figures = Array.from(document.querySelectorAll(`.figure`));
+
+      hexAll.forEach((el, index) => {
+        if (el.firstChild) {
+          // console.log(Boolean(el.firstChild));
+
+          el.firstChild.figure.removeFigure();
+        }
+      });
+    };
+
+
+
+
+    // Figure.prototype.pasteBoard = function () {
+    //   hexAll.forEach((el, index) => {
+    //     figures.forEach((el) => {
+    //       if (el.figure.place === index)
+    //         new Figure(
+    //           el.figure.type,
+    //           el.figure.place,
+    //           el.figure.color,
+    //           el.figure.fresh,
+    //           el.figure.figureElement
+    //         );
+    //       console.log(`New Figure aadded - `, el.figure, index);
+    //     });
+    //   });
+    // };
+
+
+
+    Figure.prototype.pasteBoard = function () {
+      for (let index = 0; index < 64; index++) { // Iterujemy dokładnie przez 64 pola szachownicy
+        figures.forEach(figureEl => {
+          if (figureEl.figure.place === index) { // Sprawdzamy, czy figura znajduje się na bieżącym polu
+            new Figure(
+              figureEl.figure.type,
+              figureEl.figure.place,
+              figureEl.figure.color,
+              figureEl.figure.fresh,
+              figureEl.figure.figureElement
+            );
+            console.log(`New Figure added - `, figureEl.figure, index); // Logujemy informacje o nowej figurze
+          }
+        });
+      }
+    };
+    
+
+
+
 
     // ------------------------------------
     Figure.prototype.showMove = function (possibleMove) {
