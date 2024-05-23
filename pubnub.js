@@ -40,7 +40,6 @@ const showMessage = (messageEvent) => {
 // What you see after opponent move
 const handleMove = (messageEvent) => {
   // boardContent = messageEvent.message.description;
-  console.log(`yesyes` ,boardContent);
 
   Figure.prototype.pasteBoard();
   
@@ -102,7 +101,7 @@ const setupPubNub = () => {
         // BOARD CONTENT CAPTURED BY PLAYER2 AFTER PLAYER1 MOVE //
         boardContent = messageEvent.message.description;
 
-        console.log(`boardContent`, boardContent);
+        console.log(`boardContent captured via messageEvent`, boardContent);
         // PLAYER2 BOARD EXECUTES ALL DATA FROM PLAYER1 AND SHOW IT ON BOARD //
         handleMove(messageEvent);
 

@@ -1,5 +1,7 @@
 "use strict";
 
+let kurwa = [];
+
 class Player {
   constructor(name, nr, color, turn) {
     this.name = name;
@@ -96,30 +98,35 @@ class Figure {
       // hexAll[index].firstChild.figure.removeFigure();
     };
 
-    // Figure.prototype.copyBoard = function () {
-    //   boardContent = [];
-    //   boardContent = Array.from(document.querySelectorAll(`.figure`));
-    //   console.log(`boiard after copied is`, typeof(boardContent));
-    // };
+
+
+
 
     Figure.prototype.copyBoard = function () {
       boardContent = [];
-      const figures = Array.from(document.querySelectorAll(".figure")).map(
-        (figureElement) => figureElement.figure
-      );
-
-      figures.forEach((figure) => {
+    
+      // Get all figures on the board
+      const figures = hexAll
+        .map(el => el.firstChild ? el.firstChild.figure : null)
+        .filter(el => el !== null);
+      
+      // Extract figure data and add to boardContent
+      figures.forEach((el) => {
         const figureData = {
-          type: figure.type,
-          place: figure.place,
-          color: figure.color,
-          fresh: figure.fresh,
+          type: el.type,
+          place: el.place,
+          color: el.color,
+          fresh: el.fresh,
         };
         boardContent.push(figureData);
       });
-
-      console.log(`Board after copied:`, boardContent);
+    
+      console.log(`Board after copied from method:`, boardContent);
     };
+
+    
+
+
 
 
     Figure.prototype.pasteBoard = function () {
@@ -129,37 +136,18 @@ class Figure {
           hex.firstChild.figure.removeFigure();
         }
       });
-    
+
+      console.log(`boardContent !!pasted!! from method`, boardContent);
+      
       // Iterate over each figure in boardContent and create a new Figure object
       boardContent.forEach(figureData => {
         const { type, place, color, fresh } = figureData;
         new Figure(type, place, color, fresh);
       });
-      boardContent = [];
+      // boardContent = [];
     };
     
 
-
-
-    // Figure.prototype.pasteBoard = function () {
-    //   hexAll.forEach((el) => {
-    //     if (el.firstChild) {
-    //       el.firstChild.figure.removeFigure();
-    //     }
-    //   });
-
-    //   boardContent.forEach((figureEl) => {
-    //     if (figureEl.figure.place === index) {
-    //       new Figure(
-    //         figureEl.figure.type,
-    //         figureEl.figure.place,
-    //         figureEl.figure.color,
-    //         figureEl.figure.fresh,
-    //         figureEl.figure.figureElement
-    //       );
-    //     }
-    //   });
-    // };
 
 
 

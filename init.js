@@ -142,7 +142,7 @@ hexAll.forEach((el, index) => {
 
       publishMessage(boardContent);
       console.log(`board content published`);
-      boardContent = [];
+      // boardContent = [];
       
       player.changeTurn();
       player.activateTurn();
