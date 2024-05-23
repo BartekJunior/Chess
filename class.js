@@ -101,7 +101,6 @@ class Figure {
 
 
 
-
     Figure.prototype.copyBoard = function () {
       boardContent = [];
     
@@ -125,8 +124,6 @@ class Figure {
     };
 
     
-
-
 
 
     Figure.prototype.pasteBoard = function () {

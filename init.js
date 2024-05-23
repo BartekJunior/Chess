@@ -25,7 +25,6 @@ hexAll.forEach((el, index) => {
 
 
 
-
 // DRAW ALL BOARD AND PLACE FIGURES //
 // DRAW ALL BOARD AND PLACE FIGURES //
 // DRAW ALL BOARD AND PLACE FIGURES //
@@ -106,9 +105,9 @@ let boardContent = [];
 
 // tempFigureData contains all DATA about moved figure and its used ONLY for current Player on his screen
 let tempFigureData = [];
-
 let possibleMove = [];
 
+// rochadeData for handle rochade move, used only for current Player on his screen
 let rochadePositionKingside;
 let rochadePositionQueenside;
 let kingsideRook;
@@ -135,21 +134,10 @@ hexAll.forEach((el, index) => {
 
       new Figure(tempFigureData[0], index, tempFigureData[2], false);
       hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
-
-
-      Figure.prototype.copyBoard();
-      // Figure.prototype.pasteBoard();
-
-      publishMessage(boardContent);
-      console.log(`board content published`);
-      // boardContent = [];
-      
-      player.changeTurn();
-      player.activateTurn();
     }
 
 
-    if (el.rochade) {
+    else if (el.rochade) {
       tempFigureData.push(`rochade`);
       console.log(tempFigureData);
       
@@ -168,12 +156,15 @@ hexAll.forEach((el, index) => {
 
       Figure.prototype.removeRochadeData();
 
-      publishMessage(boardContent);
-      player.changeTurn();
-      player.activateTurn();
-    }
+    } else return
+    
 
-
+    // Executes all actions to end Player turn and send all info about movement to another Player
+    Figure.prototype.copyBoard();
+    publishMessage(boardContent);
+    console.log(`board content published`);
+    player.changeTurn();
+    player.activateTurn();
 
   });
 

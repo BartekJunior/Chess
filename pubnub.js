@@ -39,24 +39,9 @@ const showMessage = (messageEvent) => {
 
 // What you see after opponent move
 const handleMove = (messageEvent) => {
-  // boardContent = messageEvent.message.description;
 
   Figure.prototype.pasteBoard();
   
-
-  // when the opponent make a simple move
-  // if (hexAll[tempFigureData[3]].childElementCount === 0) {
-  //   console.log(`simple move`);
-
-  //   new Figure(tempFigureData[0], tempFigureData[3], tempFigureData[2], false);
-  //   hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
-  // }
-
-  // when the opponent beats
-  // NIE DZIALA BO METODA BEAT JEST NAPISANA JEDNA DLA OBU GRACZY - SPRAWDZ Figure.prototype.beat
-  // else if (hexAll[tempFigureData[3]].childElementCount > 0) {
-  //   Figure.prototype.beat(tempFigureData[3]);
-  // }
 };
 
 // Figure.prototype.removeRochadeData();
@@ -98,19 +83,17 @@ const setupPubNub = () => {
         typeof messageEvent.message.description !== `string`
       ) {
 
-        // BOARD CONTENT CAPTURED BY PLAYER2 AFTER PLAYER1 MOVE //
+        // BOARD CONTENT CAPTURED BY PLAYER2 AFTER PLAYER1 MOVE AND PUBLISHED //
         boardContent = messageEvent.message.description;
-
-        console.log(`boardContent captured via messageEvent`, boardContent);
         // PLAYER2 BOARD EXECUTES ALL DATA FROM PLAYER1 AND SHOW IT ON BOARD //
-        handleMove(messageEvent);
+
+        // handleMove(messageEvent);
+        Figure.prototype.pasteBoard();
 
         player.changeTurn();
         player.activateTurn();
       }
-
     },
-
 
 
 
