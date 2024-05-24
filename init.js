@@ -7,6 +7,10 @@ let player;
 const squareNode = document.querySelectorAll(`.square`);
 const hexAll = Array.from(squareNode);
 
+for (let i = 0; i < hexAll.length; i++) {
+  if (i < 8 || i > 55) hexAll[i].promotion = true;
+}
+
 const lootPlayer1 = document.querySelector(`.loot-player1-itself`);
 const lootPlayer2 = document.querySelector(`.loot-player2-itself`);
 
@@ -58,8 +62,8 @@ new Figure(`knight`, 1, `black`, true);
 new Figure(`bishop`, 2, `black`, true);
 new Figure(`queen`, 3, `black`, true);
 new Figure(`king`, 4, `black`, true);
-new Figure(`bishop`, 5, `black`, true);
-new Figure(`knight`, 6, `black`, true);
+// new Figure(`bishop`, 5, `black`, true);
+// new Figure(`knight`, 6, `black`, true);
 new Figure(`rook`, 7, `black`, true);
 
 new Figure(`pawn`, 8, `black`, true);
@@ -68,8 +72,11 @@ new Figure(`pawn`, 10, `black`, true);
 new Figure(`pawn`, 11, `black`, true);
 new Figure(`pawn`, 12, `black`, true);
 new Figure(`pawn`, 13, `black`, true);
-new Figure(`pawn`, 14, `black`, true);
+// new Figure(`pawn`, 14, `black`, true);
 new Figure(`pawn`, 15, `black`, true);
+
+new Figure(`pawn`, 22, `white`, true);
+
 
 new Figure(`pawn`, 48, `white`, true);
 new Figure(`pawn`, 49, `white`, true);
@@ -126,7 +133,7 @@ hexAll.forEach((el, index) => {
     event.preventDefault();
     tempFigureData.push(index);
 
-    if (el.move && !el.rochade && !el.promotion) {
+    if (el.move && !el.rochade) {
       
       if (el.childElementCount > 0) {
         Figure.prototype.beat(index);
@@ -134,8 +141,15 @@ hexAll.forEach((el, index) => {
 
       new Figure(tempFigureData[0], index, tempFigureData[2], false);
       hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+
+      if (el.promotion) {
+        console.log(`PROMOTION`);
+        Figure.prototype.promotion;
+      }
+
     }
 
+ 
 
     else if (el.rochade) {
       tempFigureData.push(`rochade`);
@@ -162,7 +176,7 @@ hexAll.forEach((el, index) => {
     // Executes all actions to end Player turn and send all info about movement to another Player
     Figure.prototype.copyBoard();
     publishMessage(boardContent);
-    console.log(`board content published`);
+    // console.log(`board content published`);
     player.changeTurn();
     player.activateTurn();
 

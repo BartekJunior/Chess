@@ -1,6 +1,6 @@
 "use strict";
 
-let kurwa = [];
+// let kurwa = [];
 
 class Player {
   constructor(name, nr, color, turn) {
@@ -162,6 +162,12 @@ class Figure {
     };
     // ------------------------------------
 
+    Figure.prototype.promotion = function () {
+      
+    }
+
+    
+
     Figure.prototype.pawnMove = function () {
       if (this.type === "pawn") {
         // Dla piona białego (white) ruch jest do gory (-1), dla piona czarnego (black) ruch jest w dół (+1)
@@ -190,6 +196,8 @@ class Figure {
             tempFigureData[2]
         )
           possibleMove.push(this.place + 7 * direction);
+
+
 
         for (let i = 0; i < possibleMove.length; i++) {
           if (possibleMove[i] >= 0 && possibleMove[i] < 64)
