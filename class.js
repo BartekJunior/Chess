@@ -84,7 +84,8 @@ class Figure {
       const died = hexAll[index].firstChild.figure;
 
       died.removeFigure();
-      console.log(died);
+      // hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+      // new Figure(tempFigureData[0], index, tempFigureData[2], false);
 
       if (died.color === `black`) lootPlayer1.appendChild(died.figureElement);
       if (died.color === `white`) lootPlayer2.appendChild(died.figureElement);
@@ -95,20 +96,36 @@ class Figure {
       if (died.type === `king` && died.color !== player.color)
         alert(`CHECK MATE!!! YOU WIN!!!!!!!!!!!!!!!`);
 
-      // hexAll[index].firstChild.figure.removeFigure();
     };
+
+
+
+
+
+    Figure.prototype.promotion = function () {
+      if (
+        tempFigureData[0] === `pawn` &&
+        tempFigureData[2] === `white` &&
+        (hexAll[tempFigureData[3]].promotion)
+      ) {
+        console.log(`Promotion figure from Figure Class`);
+        hexAll[tempFigureData[3]].firstChild.figure.removeFigure();
+        new Figure(`queen`, tempFigureData[3], `white`, true);
+      }
+    };
+
 
 
 
 
     Figure.prototype.copyBoard = function () {
       boardContent = [];
-    
+
       // Get all figures on the board
       const figures = hexAll
-        .map(el => el.firstChild ? el.firstChild.figure : null)
-        .filter(el => el !== null);
-      
+        .map((el) => (el.firstChild ? el.firstChild.figure : null))
+        .filter((el) => el !== null);
+
       // Extract figure data and add to boardContent
       figures.forEach((el) => {
         const figureData = {
@@ -119,34 +136,27 @@ class Figure {
         };
         boardContent.push(figureData);
       });
-    
+
       console.log(`Board after copied from method:`, boardContent);
     };
 
-    
-
-
     Figure.prototype.pasteBoard = function () {
       // Remove any existing figures from the board
-      hexAll.forEach(hex => {
+      hexAll.forEach((hex) => {
         if (hex.firstChild) {
           hex.firstChild.figure.removeFigure();
         }
       });
 
       console.log(`boardContent !!pasted!! from method`, boardContent);
-      
+
       // Iterate over each figure in boardContent and create a new Figure object
-      boardContent.forEach(figureData => {
+      boardContent.forEach((figureData) => {
         const { type, place, color, fresh } = figureData;
         new Figure(type, place, color, fresh);
       });
       // boardContent = [];
     };
-    
-
-
-
 
     // ------------------------------------
     Figure.prototype.showMove = function (possibleMove) {
@@ -161,12 +171,6 @@ class Figure {
       });
     };
     // ------------------------------------
-
-    Figure.prototype.promotion = function () {
-      
-    }
-
-    
 
     Figure.prototype.pawnMove = function () {
       if (this.type === "pawn") {
@@ -197,12 +201,12 @@ class Figure {
         )
           possibleMove.push(this.place + 7 * direction);
 
-
-
         for (let i = 0; i < possibleMove.length; i++) {
           if (possibleMove[i] >= 0 && possibleMove[i] < 64)
             this.showMove(possibleMove[i]);
         }
+
+        const checkPromotion = function () {};
       }
     };
 
@@ -348,8 +352,6 @@ class Figure {
           // Check queenside castling
           queensideRook = this.color === "white" ? 56 : 0;
           console.log(`rochade possible, rook index:`, queensideRook);
-
-          // const queensideRook = queensideRookPosition;
 
           if (
             queensideRook &&

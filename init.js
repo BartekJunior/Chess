@@ -27,8 +27,6 @@ hexAll.forEach((el, index) => {
   });
 });
 
-
-
 // DRAW ALL BOARD AND PLACE FIGURES //
 // DRAW ALL BOARD AND PLACE FIGURES //
 // DRAW ALL BOARD AND PLACE FIGURES //
@@ -77,7 +75,6 @@ new Figure(`pawn`, 15, `black`, true);
 
 new Figure(`pawn`, 22, `white`, true);
 
-
 new Figure(`pawn`, 48, `white`, true);
 new Figure(`pawn`, 49, `white`, true);
 new Figure(`pawn`, 50, `white`, true);
@@ -96,12 +93,9 @@ new Figure(`king`, 60, `white`, true);
 // new Figure(`knight`, 62, `white`, true);
 new Figure(`rook`, 63, `white`, true);
 
-
 // DRAW ALL BOARD AND PLACE FIGURES //
 // DRAW ALL BOARD AND PLACE FIGURES //
 // DRAW ALL BOARD AND PLACE FIGURES //
-
-
 
 // ALL VARIABLES FOR FIGURE MOVE
 // ALL VARIABLES FOR FIGURE MOVE
@@ -120,7 +114,6 @@ let rochadePositionQueenside;
 let kingsideRook;
 let queensideRook;
 
-
 // DROP DROP DROP DROP DROP DROP //
 hexAll.forEach((el, index) => {
   // Prevent default behavior to enable drop
@@ -128,62 +121,66 @@ hexAll.forEach((el, index) => {
     event.preventDefault();
   });
 
-  // DROP ITSELF
+  // DROP ITSELF - Here are all moves which Player can make. Only for current Player
   el.addEventListener("drop", function (event) {
     event.preventDefault();
     tempFigureData.push(index);
 
+    // simple move
     if (el.move && !el.rochade) {
-      
+      // simple beat, if something is on the move destination it gets destroyed
       if (el.childElementCount > 0) {
         Figure.prototype.beat(index);
       }
 
-      new Figure(tempFigureData[0], index, tempFigureData[2], false);
+      // remove figure from home and put figure on move destination
       hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
+      new Figure(tempFigureData[0], index, tempFigureData[2], false);
 
+      //check if pawn is promoted after moving
       if (el.promotion) {
-        console.log(`PROMOTION`);
-        Figure.prototype.promotion;
+        Figure.prototype.promotion();
       }
-
     }
 
- 
-
+    // simple rochade
     else if (el.rochade) {
       tempFigureData.push(`rochade`);
-      console.log(tempFigureData);
-      
+      console.log(`TFD is`, tempFigureData);
+
       if (rochadePositionKingside) {
         new Figure(tempFigureData[0], index, tempFigureData[2], false);
         hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
         hexAll[kingsideRook].firstChild.figure.removeFigure();
-        new Figure(`rook`, rochadePositionKingside - 1, tempFigureData[2], false);
+        new Figure(
+          `rook`,
+          rochadePositionKingside - 1,
+          tempFigureData[2],
+          false
+        );
       } else if (rochadePositionQueenside) {
-
         new Figure(tempFigureData[0], index, tempFigureData[2], false);
         hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
         hexAll[queensideRook].firstChild.figure.removeFigure();
-        new Figure(`rook`, rochadePositionQueenside + 1, tempFigureData[2], false);
+        new Figure(
+          `rook`,
+          rochadePositionQueenside + 1,
+          tempFigureData[2],
+          false
+        );
       }
 
       Figure.prototype.removeRochadeData();
+    } else return;
 
-    } else return
-    
-
-    // Executes all actions to end Player turn and send all info about movement to another Player
+    // Executes all actions to end Player turn and send all info about movement to another Player via BoardContent
     Figure.prototype.copyBoard();
     publishMessage(boardContent);
     // console.log(`board content published`);
     player.changeTurn();
     player.activateTurn();
-
   });
-
 });
-
 
 // DROP OUTSIDE BOARD DROP OUTSIDE BOARDDROP OUTSIDE BOARD //
 window.addEventListener("dragover", function (event) {
@@ -197,5 +194,4 @@ window.addEventListener("drop", function (event) {
   // tempFigureData = [];
   possibleMove = [];
   Figure.prototype.removeRochadeData();
-
 });
