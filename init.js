@@ -73,7 +73,18 @@ new Figure(`pawn`, 13, `black`, true);
 // new Figure(`pawn`, 14, `black`, true);
 new Figure(`pawn`, 15, `black`, true);
 
+
+new Figure(`pawn`, 16, `white`, true);
+new Figure(`pawn`, 17, `white`, true);
 new Figure(`pawn`, 22, `white`, true);
+
+new Figure(`pawn`, 40, `black`, true);
+new Figure(`pawn`, 46, `black`, true);
+new Figure(`pawn`, 47, `black`, true);
+
+
+
+
 
 new Figure(`pawn`, 48, `white`, true);
 new Figure(`pawn`, 49, `white`, true);

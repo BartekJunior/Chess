@@ -95,28 +95,19 @@ class Figure {
         alert(`CHECK MATE!!! YOU LOOSE!!!`);
       if (died.type === `king` && died.color !== player.color)
         alert(`CHECK MATE!!! YOU WIN!!!!!!!!!!!!!!!`);
-
     };
-
-
-
-
 
     Figure.prototype.promotion = function () {
       if (
         tempFigureData[0] === `pawn` &&
         tempFigureData[2] === `white` &&
-        (hexAll[tempFigureData[3]].promotion)
+        hexAll[tempFigureData[3]].promotion
       ) {
         console.log(`Promotion figure from Figure Class`);
         hexAll[tempFigureData[3]].firstChild.figure.removeFigure();
         new Figure(`queen`, tempFigureData[3], `white`, true);
       }
     };
-
-
-
-
 
     Figure.prototype.copyBoard = function () {
       boardContent = [];
@@ -187,26 +178,65 @@ class Figure {
           }
         }
 
+        const rightSideHexes = [7, 15, 23, 31, 39, 47, 55, 63];
+        const leftSideHexes = [0, 8, 16, 24, 32, 40, 48, 56];
+
         // Beat for pawn
         if (
+          !leftSideHexes.includes(this.place) &&
+          direction === -1 &&
           hexAll[this.place + 9 * direction].childElementCount > 0 &&
           hexAll[this.place + 9 * direction].firstChild.figure.color !==
             tempFigureData[2]
-        )
+        ) {
           possibleMove.push(this.place + 9 * direction);
+          console.log(`white left 9`);
+          console.log(`direction = `, direction);
+        }
+
         if (
+          !rightSideHexes.includes(this.place) &&
+          direction === -1 &&
+          hexAll[this.place + 9 * direction] &&
+          hexAll[this.place + 9 * direction].childElementCount > 0 &&
+          hexAll[this.place + 9 * direction].firstChild.figure.color !==
+            tempFigureData[2]
+        ) {
+          possibleMove.push(this.place + 7 * direction);
+          console.log(`white right 7`);
+          console.log(`direction = `, direction);
+        }
+
+     
+        if (
+          !leftSideHexes.includes(this.place) &&
+          direction === 1 &&
           hexAll[this.place + 7 * direction].childElementCount > 0 &&
           hexAll[this.place + 7 * direction].firstChild.figure.color !==
             tempFigureData[2]
-        )
+        ) {
           possibleMove.push(this.place + 7 * direction);
+          console.log(`black left 7`);
+          console.log(`direction = `, direction);
+        }
+
+        if (
+          !rightSideHexes.includes(this.place) &&
+          direction === 1 &&
+          hexAll[this.place + 9 * direction].childElementCount > 0 &&
+          hexAll[this.place + 9 * direction].firstChild.figure.color !==
+            tempFigureData[2]
+        ) {
+          possibleMove.push(this.place + 9 * direction);
+          console.log(`black right 9`);
+          console.log(`direction = `, direction);
+        }
+
 
         for (let i = 0; i < possibleMove.length; i++) {
           if (possibleMove[i] >= 0 && possibleMove[i] < 64)
             this.showMove(possibleMove[i]);
         }
-
-        const checkPromotion = function () {};
       }
     };
 
