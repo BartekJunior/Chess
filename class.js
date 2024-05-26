@@ -183,55 +183,63 @@ class Figure {
 
         // Beat for pawn
         if (
-          !leftSideHexes.includes(this.place) &&
+          rightSideHexes.includes(this.place) &&
           direction === -1 &&
           hexAll[this.place + 9 * direction].childElementCount > 0 &&
           hexAll[this.place + 9 * direction].firstChild.figure.color !==
             tempFigureData[2]
         ) {
           possibleMove.push(this.place + 9 * direction);
-          console.log(`white left 9`);
-          console.log(`direction = `, direction);
-        }
-
-        if (
-          !rightSideHexes.includes(this.place) &&
+          // console.log(`white left 9`);
+        } else if (
+          leftSideHexes.includes(this.place) &&
           direction === -1 &&
-          hexAll[this.place + 9 * direction] &&
-          hexAll[this.place + 9 * direction].childElementCount > 0 &&
-          hexAll[this.place + 9 * direction].firstChild.figure.color !==
+          hexAll[this.place + 7 * direction].childElementCount > 0 &&
+          hexAll[this.place + 7 * direction].firstChild.figure.color !==
             tempFigureData[2]
         ) {
           possibleMove.push(this.place + 7 * direction);
-          console.log(`white right 7`);
-          console.log(`direction = `, direction);
-        }
-
-     
-        if (
-          !leftSideHexes.includes(this.place) &&
+          // console.log(`white right 7`);
+        } else if (
+          rightSideHexes.includes(this.place) &&
           direction === 1 &&
           hexAll[this.place + 7 * direction].childElementCount > 0 &&
           hexAll[this.place + 7 * direction].firstChild.figure.color !==
             tempFigureData[2]
         ) {
           possibleMove.push(this.place + 7 * direction);
-          console.log(`black left 7`);
-          console.log(`direction = `, direction);
-        }
-
-        if (
-          !rightSideHexes.includes(this.place) &&
+          // console.log(`black left 7`);
+        } else if (
+          leftSideHexes.includes(this.place) &&
           direction === 1 &&
           hexAll[this.place + 9 * direction].childElementCount > 0 &&
           hexAll[this.place + 9 * direction].firstChild.figure.color !==
             tempFigureData[2]
         ) {
           possibleMove.push(this.place + 9 * direction);
-          console.log(`black right 9`);
-          console.log(`direction = `, direction);
-        }
+          // console.log(`black right 9`);
+        } else if (
+          !rightSideHexes.includes(this.place) &&
+          !leftSideHexes.includes(this.place)
+        ) {
+          if (
+            hexAll[this.place + 9 * direction].childElementCount > 0 &&
+            hexAll[this.place + 9 * direction].firstChild.figure.color !==
+              tempFigureData[2]
+          ) {
+            possibleMove.push(this.place + 9 * direction);
+            console.log(`BOTH BEATS`);
+          }
 
+          if (
+            hexAll[this.place + 7 * direction].childElementCount > 0 &&
+            hexAll[this.place + 7 * direction].firstChild.figure.color !==
+              tempFigureData[2]
+          ) {
+            possibleMove.push(this.place + 7 * direction);
+            console.log(`BOTH BEATS`);
+          }
+        }
 
         for (let i = 0; i < possibleMove.length; i++) {
           if (possibleMove[i] >= 0 && possibleMove[i] < 64)

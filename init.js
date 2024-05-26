@@ -70,13 +70,15 @@ new Figure(`pawn`, 10, `black`, true);
 new Figure(`pawn`, 11, `black`, true);
 new Figure(`pawn`, 12, `black`, true);
 new Figure(`pawn`, 13, `black`, true);
-// new Figure(`pawn`, 14, `black`, true);
+new Figure(`pawn`, 14, `black`, true);
 new Figure(`pawn`, 15, `black`, true);
 
 
 new Figure(`pawn`, 16, `white`, true);
 new Figure(`pawn`, 17, `white`, true);
 new Figure(`pawn`, 22, `white`, true);
+new Figure(`pawn`, 23, `white`, true);
+
 
 new Figure(`pawn`, 40, `black`, true);
 new Figure(`pawn`, 46, `black`, true);
