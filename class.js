@@ -100,12 +100,12 @@ class Figure {
     Figure.prototype.promotion = function () {
       if (
         tempFigureData[0] === `pawn` &&
-        tempFigureData[2] === `white` &&
+        // tempFigureData[2] === `white` &&
         hexAll[tempFigureData[3]].promotion
       ) {
-        console.log(`Promotion figure from Figure Class`);
+        // console.log(`Promotion figure from Figure Class`);
         hexAll[tempFigureData[3]].firstChild.figure.removeFigure();
-        new Figure(`queen`, tempFigureData[3], `white`, true);
+        new Figure(`queen`, tempFigureData[3], tempFigureData[2], true);
       }
     };
 
