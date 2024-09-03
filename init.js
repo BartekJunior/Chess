@@ -80,6 +80,7 @@ new Figure(`pawn`, 22, `white`, true);
 new Figure(`pawn`, 23, `white`, true);
 
 
+new Figure(`bishop`, 43, `black`, true);
 new Figure(`pawn`, 40, `black`, true);
 new Figure(`pawn`, 46, `black`, true);
 new Figure(`pawn`, 47, `black`, true);
@@ -92,7 +93,7 @@ new Figure(`pawn`, 48, `white`, true);
 new Figure(`pawn`, 49, `white`, true);
 new Figure(`pawn`, 50, `white`, true);
 new Figure(`pawn`, 51, `white`, true);
-new Figure(`pawn`, 52, `white`, true);
+// new Figure(`pawn`, 52, `white`, true);
 new Figure(`pawn`, 53, `white`, true);
 new Figure(`pawn`, 54, `white`, true);
 new Figure(`pawn`, 55, `white`, true);

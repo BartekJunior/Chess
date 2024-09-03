@@ -1,9 +1,19 @@
 body {
-  padding: 10px 10px;
+  padding: 50px 10px;
 }
 
 .disable {
   pointer-events: none;
+}
+
+.your-turn {
+  background-color: green;
+  color: white;
+}
+
+.wait-turn {
+  background-color: red;
+  color: beige;
 }
 
 
@@ -76,7 +86,7 @@ body {
 }
 
 .header {
-  height: 100px;
+  height: max-content;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -96,6 +106,14 @@ body {
 .h3-info {
   display: block;
   text-align: center;
+  padding: 15px;
+}
+
+.h1-header {
+  width: 320px;
+  margin: 0 auto 5px;
+  background: linear-gradient(90deg, rgba(242,238,197,1) 0%, rgba(221,204,33,1) 49%, rgba(255,160,0,1) 100%);
+  font-weight: 800;
 }
 
 .loot-global {
@@ -203,10 +221,6 @@ i {
     width: 100%;
   }
 
-  .h1-header,
-  .h3-info {
-    text-align: center;
-  }
 
   .board {
     width: 100%;

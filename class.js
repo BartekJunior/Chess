@@ -15,13 +15,15 @@ class Player {
 
     Player.prototype.activateTurn = function () {
       if (!this.turn) {
-        info.innerHTML = `Czekaj na swój ruch`;
-        info.style.backgroundColor = `red`;
+        info.innerHTML = `WAIT FOR YOUR TURN`;
+        info.className = ``;
+        info.classList.add(`h3-info`, `wait-turn`);
         gameContainer.classList.add(`disable`);
       }
       if (this.turn) {
-        info.innerHTML = `Teraz Twój Ruch! Nie Spierdol tego!`;
-        info.style.backgroundColor = `green`;
+        info.innerHTML = `YOUR TURN. MAKE A MOVE`;
+        info.className = ``;
+        info.classList.add(`h3-info`, `your-turn`);
         gameContainer.classList.remove(`disable`);
       }
     };
@@ -54,6 +56,9 @@ class Figure {
 
     this.figureElement.addEventListener("click", function () {
       console.log(this.figure, "this is <I>.figure");
+
+      // nowa funkcja do szacha tutaj zeby sie wygodnie testowalo.. do wywalenia
+   
     });
 
     // DRAG START
@@ -518,3 +523,11 @@ class Figure {
     };
   }
 }
+
+
+
+// TODO: ehheehhehehehe
+
+// TODO: hmmmmm
+
+// FIXME: this must be fixed
