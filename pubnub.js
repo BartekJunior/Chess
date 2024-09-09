@@ -44,16 +44,10 @@ const handleMove = (messageEvent) => {
   
 };
 
-// Figure.prototype.removeRochadeData();
 
-// hexAll[tempFigureData[1]].classList.add(`fade-move`);
-// hexAll[tempFigureData[3]].classList.add(`fade-move`);
 
-// setTimeout(() => {
-//   hexAll.forEach((el) => {
-//     el.classList.remove(`fade-move`);
-//   });
-// }, 7000);
+
+
 
 let pubnub;
 
@@ -87,7 +81,6 @@ const setupPubNub = () => {
         boardContent = messageEvent.message.description;
         // PLAYER2 BOARD EXECUTES ALL DATA FROM PLAYER1 AND SHOW IT ON BOARD //
 
-        // handleMove(messageEvent);
         Figure.prototype.pasteBoard();
 
         player.changeTurn();
@@ -104,11 +97,11 @@ const setupPubNub = () => {
         console.log(`User ${event.uuid} has joined.`);
 
         // SET PLAYER in const PLAYER //
-        let color = event.uuid == 1 ? `white` : `black`;
-        let turn = event.uuid == 1 ? true : false;
+        let color = event.occupancy == 1 ? `white` : `black`;
+        let turn = event.occupancy == 1 ? true : false;
 
         if (event.uuid === UUID) {
-          player = new Player(event.uuid, event.uuid, color, turn);
+          player = new Player(event.uuid, event.occupancy, color, turn);
           player.activateTurn();
 
           if (player.nr === 1)

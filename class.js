@@ -89,8 +89,6 @@ class Figure {
       const died = hexAll[index].firstChild.figure;
 
       died.removeFigure();
-      // hexAll[tempFigureData[1]].firstChild.figure.removeFigure();
-      // new Figure(tempFigureData[0], index, tempFigureData[2], false);
 
       if (died.color === `black`) lootPlayer1.appendChild(died.figureElement);
       if (died.color === `white`) lootPlayer2.appendChild(died.figureElement);
