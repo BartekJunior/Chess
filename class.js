@@ -142,13 +142,25 @@ class Figure {
         }
       });
 
-      console.log(`boardContent !!pasted!! from method`, boardContent);
-
       // Iterate over each figure in boardContent and create a new Figure object
       boardContent.forEach((figureData) => {
         const { type, place, color, fresh } = figureData;
         new Figure(type, place, color, fresh);
       });
+      
+      console.log(`boardContent !!pasted!! from method`, boardContent);
+
+      // Check after pasting board if some King was DOWN. If true then message Check Mate and end the game.
+      const WhiteKingDown = !boardContent.some(figure => figure.type === 'king' && figure.color === `white` );
+      const BlackKingDown = !boardContent.some(figure => figure.type === 'king' && figure.color === `black` );
+
+      if (player.nr == 1 && WhiteKingDown) alert(`CHECK MATE! YOU LOOSE!!!`);
+      if (player.nr == 2 && BlackKingDown) alert(`CHECK MATE! YOU LOOSE!!!`);
+
+      console.log(WhiteKingDown);
+      console.log(BlackKingDown);
+      
+
       // boardContent = [];
     };
 

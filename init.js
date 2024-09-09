@@ -1,7 +1,7 @@
 "use strict";
 
 // const UUID = `bartek`;
-const UUID = prompt(`Write Player's Name`);
+const UUID = prompt(`Write Your Player's Number: 1 or 2. The other Player must put the OTHER NUMBER to game working properly!!!`);
 let player;
 
 const squareNode = document.querySelectorAll(`.square`);

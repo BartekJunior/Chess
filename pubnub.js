@@ -97,11 +97,11 @@ const setupPubNub = () => {
         console.log(`User ${event.uuid} has joined.`);
 
         // SET PLAYER in const PLAYER //
-        let color = event.occupancy == 1 ? `white` : `black`;
-        let turn = event.occupancy == 1 ? true : false;
+        let color = UUID == 1 ? `white` : `black`;
+        let turn = UUID == 1 ? true : false;
 
         if (event.uuid === UUID) {
-          player = new Player(event.uuid, event.occupancy, color, turn);
+          player = new Player(event.uuid, UUID, color, turn);
           player.activateTurn();
 
           if (player.nr === 1)
