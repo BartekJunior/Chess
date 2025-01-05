@@ -243,7 +243,7 @@ class Figure {
               tempFigureData[2]
           ) {
             possibleMove.push(this.place + 9 * direction);
-            console.log(`BOTH BEATS`);
+            // console.log(`BOTH BEATS`);
           }
 
           if (
@@ -252,7 +252,7 @@ class Figure {
               tempFigureData[2]
           ) {
             possibleMove.push(this.place + 7 * direction);
-            console.log(`BOTH BEATS`);
+            // console.log(`BOTH BEATS`);
           }
         }
 
