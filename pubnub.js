@@ -69,6 +69,8 @@ const setupPubNub = () => {
 
 
     message: (messageEvent) => {
+      console.log(messageEvent, `messageEvent`);
+      
       if (typeof messageEvent.message.description === `string`)
         showMessage(messageEvent);
 
@@ -81,10 +83,19 @@ const setupPubNub = () => {
         boardContent = messageEvent.message.description;
         // PLAYER2 BOARD EXECUTES ALL DATA FROM PLAYER1 AND SHOW IT ON BOARD //
 
+        // console.log(`shit`);
+        
         Figure.prototype.pasteBoard();
+
+        // console.log(`BF CHange turn`);
+        
 
         player.changeTurn();
         player.activateTurn();
+
+        // console.log(`AFTER CHange turn`);
+
+
       }
     },
 

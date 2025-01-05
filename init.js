@@ -1,7 +1,9 @@
 "use strict";
 
 // const UUID = `bartek`;
-const UUID = prompt(`Write Your Player's Number: 1 or 2. The other Player must put the OTHER NUMBER to game working properly!!!`);
+const UUID = prompt(
+  `Write Your Player's Number: 1 or 2. The other Player must put the OTHER NUMBER to game working properly!!!`
+);
 let player;
 
 const squareNode = document.querySelectorAll(`.square`);
@@ -73,21 +75,15 @@ new Figure(`pawn`, 13, `black`, true);
 new Figure(`pawn`, 14, `black`, true);
 new Figure(`pawn`, 15, `black`, true);
 
-
 new Figure(`pawn`, 16, `white`, true);
 new Figure(`pawn`, 17, `white`, true);
 new Figure(`pawn`, 22, `white`, true);
 new Figure(`pawn`, 23, `white`, true);
 
-
 new Figure(`bishop`, 43, `black`, true);
 new Figure(`pawn`, 40, `black`, true);
 new Figure(`pawn`, 46, `black`, true);
 new Figure(`pawn`, 47, `black`, true);
-
-
-
-
 
 new Figure(`pawn`, 48, `white`, true);
 new Figure(`pawn`, 49, `white`, true);
@@ -116,7 +112,7 @@ new Figure(`rook`, 63, `white`, true);
 // ALL VARIABLES FOR FIGURE MOVE
 
 // boardContent contains ALL Figures on board, used for send the whole board to another player via PubNub
-let boardContent = [];
+let boardContent = { figures: [], lootPlayer1: [], lootPlayer2: [] };
 
 // tempFigureData contains all DATA about moved figure and its used ONLY for current Player on his screen
 let tempFigureData = [];
@@ -190,9 +186,10 @@ hexAll.forEach((el, index) => {
     // Executes all actions to end Player turn and send all info about movement to another Player via BoardContent
     Figure.prototype.copyBoard();
     publishMessage(boardContent);
-    // console.log(`board content published`);
+    
     player.changeTurn();
     player.activateTurn();
+
   });
 });
 

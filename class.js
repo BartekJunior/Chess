@@ -58,8 +58,9 @@ class Figure {
       console.log(this.figure, "this is <I>.figure");
 
       // nowa funkcja do szacha tutaj zeby sie wygodnie testowalo.. do wywalenia
-   
     });
+
+    
 
     // DRAG START
     this.figureElement.addEventListener("dragstart", function (event) {
@@ -81,9 +82,9 @@ class Figure {
       this.figureElement.remove();
     };
 
-    // JA PIERDSOLE BARTAS! CALA FUKNCJA RYSOWANIA RUCHU PRZECIWNIKA POWINNA BYC ZAKODOWANA RAZ I TYLKO JEDEN RAZ!!!!!!!!!!!!!!
-    // A NIE ZE TY BEDZIESZ JA ROBIL OSOBNO DLA ZWYKLEGO RUCHU, ROSZADY I PROMOCJI
-    // BO POZNIEJ DO CHUJA WAFLA BEDZIESZ CHCIAL DOKLADAC RUCHYU MORDO!!!!
+    // BARTAS! CALA FUKNCJA RYSOWANIA RUCHU PRZECIWNIKA POWINNA BYC ZAKODOWANA RAZ I TYLKO JEDEN RAZ!!!!!!!!!!!!!!
+    // A NIE ZE TY BEDZIESZ JA ROBIL OSOBNO DLA ZWYKLEGO RUCHU, ROSZADY I PROMOCJI!!!
+   
 
     Figure.prototype.beat = function (index) {
       const died = hexAll[index].firstChild.figure;
@@ -113,7 +114,7 @@ class Figure {
     };
 
     Figure.prototype.copyBoard = function () {
-      boardContent = [];
+      boardContent = { figures: [], lootPlayer1: [], lootPlayer2: [] };
 
       // Get all figures on the board
       const figures = hexAll
@@ -128,7 +129,29 @@ class Figure {
           color: el.color,
           fresh: el.fresh,
         };
-        boardContent.push(figureData);
+        boardContent.figures.push(figureData);
+      });
+
+      lootPlayer1.childNodes.forEach((el) => {
+        const figureData = {
+          type: el.figure.type,
+          place: el.figure.place,
+          color: el.figure.color,
+          fresh: el.figure.fresh,
+        };
+        boardContent.lootPlayer1.push(figureData);
+        // console.log(figureData, `figureData`);
+      });
+
+      lootPlayer2.childNodes.forEach((el) => {
+        const figureData = {
+          type: el.figure.type,
+          place: el.figure.place,
+          color: el.figure.color,
+          fresh: el.figure.fresh,
+        };
+        boardContent.lootPlayer2.push(figureData);
+        // console.log(figureData, `figureData`);
       });
 
       console.log(`Board after copied from method:`, boardContent);
@@ -142,26 +165,56 @@ class Figure {
         }
       });
 
+      // Remove any existing figures from the lootPlayer1
+      lootPlayer1.childNodes.forEach((el) => {
+        if (lootPlayer1.firstChild) {
+          el.figure.removeFigure();
+          console.log(`LOOT REMOVED`);
+        }
+      });
+
+      // Remove any existing figures from the lootPlayer2
+      lootPlayer2.childNodes.forEach((el) => {
+        if (lootPlayer2.firstChild) {
+          el.figure.removeFigure();
+          console.log(`LOOT REMOVED`);
+        }
+      });
+
+
+
+
       // Iterate over each figure in boardContent and create a new Figure object
-      boardContent.forEach((figureData) => {
+      boardContent.figures.forEach((figureData) => {
         const { type, place, color, fresh } = figureData;
         new Figure(type, place, color, fresh);
       });
-      
+
+
+      lootPlayer1.appendChild(new Figure(`rook`, undefined, `black`, true));
+
+   
+
+
+
+
+     
+
       console.log(`boardContent !!pasted!! from method`, boardContent);
 
       // Check after pasting board if some King was DOWN. If true then message Check Mate and end the game.
-      const WhiteKingDown = !boardContent.some(figure => figure.type === 'king' && figure.color === `white` );
-      const BlackKingDown = !boardContent.some(figure => figure.type === 'king' && figure.color === `black` );
+      const WhiteKingDown = !boardContent.figures.some(
+        (figure) => figure.type === "king" && figure.color === `white`
+      );
+      const BlackKingDown = !boardContent.figures.some(
+        (figure) => figure.type === "king" && figure.color === `black`
+      );
 
       if (player.nr == 1 && WhiteKingDown) alert(`CHECK MATE! YOU LOOSE!!!`);
       if (player.nr == 2 && BlackKingDown) alert(`CHECK MATE! YOU LOOSE!!!`);
 
       console.log(WhiteKingDown);
       console.log(BlackKingDown);
-      
-
-      // boardContent = [];
     };
 
     // ------------------------------------
@@ -533,8 +586,6 @@ class Figure {
     };
   }
 }
-
-
 
 // TODO: ehheehhehehehe
 
