@@ -39,15 +39,8 @@ const showMessage = (messageEvent) => {
 
 // What you see after opponent move
 const handleMove = (messageEvent) => {
-
   Figure.prototype.pasteBoard();
-  
 };
-
-
-
-
-
 
 let pubnub;
 
@@ -67,10 +60,9 @@ const setupPubNub = () => {
       }
     },
 
-
     message: (messageEvent) => {
       console.log(messageEvent, `messageEvent`);
-      
+
       if (typeof messageEvent.message.description === `string`)
         showMessage(messageEvent);
 
@@ -78,28 +70,20 @@ const setupPubNub = () => {
         messageEvent.publisher !== player.name &&
         typeof messageEvent.message.description !== `string`
       ) {
-
         // BOARD CONTENT CAPTURED BY PLAYER2 AFTER PLAYER1 MOVE AND PUBLISHED //
         boardContent = messageEvent.message.description;
         // PLAYER2 BOARD EXECUTES ALL DATA FROM PLAYER1 AND SHOW IT ON BOARD //
 
-        console.log(`shit`);
-        
         Figure.prototype.pasteBoard();
 
-        console.log(`BF CHange turn`);
-        
+        // console.log(`BF CHange turn`);
 
         player.changeTurn();
         player.activateTurn();
 
-        console.log(`AFTER CHange turn`);
-
-
+        // console.log(`AFTER CHange turn`);
       }
     },
-
-
 
     presence: (event) => {
       console.log(`PRESENCE EVENT`, event);
@@ -135,16 +119,12 @@ const setupPubNub = () => {
   });
 };
 
-
-
-
 // run after page is loaded
 window.onload = setupPubNub;
 
-
 // publish message
- // With the right payload, you can publish a message, add a reaction to a message,
-  // send a push notification, or send a small payload called a signal.
+// With the right payload, you can publish a message, add a reaction to a message,
+// send a push notification, or send a small payload called a signal.
 
 const publishMessage = async (message) => {
   const publishPayload = {
@@ -156,10 +136,3 @@ const publishMessage = async (message) => {
   };
   await pubnub.publish(publishPayload);
 };
-
-
-
-
-
-
-

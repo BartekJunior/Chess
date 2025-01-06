@@ -30,6 +30,50 @@ class Player {
   }
 }
 
+class lootFigure {
+  constructor(type, place, color, fresh) {
+    this.type = type;
+    this.place = place;
+    this.color = color;
+    this.fresh = fresh;
+
+    this.createFigure();
+  }
+
+  createFigure = function () {
+    this.figureElement = document.createElement("i");
+    this.figureElement.classList.add(
+      "figure",
+      `fa-solid`,
+      `fa-chess-${this.type}`
+    );
+    if (this.color === "black") {
+      this.figureElement.classList.add("black");
+      lootPlayer1.appendChild(this.figureElement);
+    }
+    if (this.color === "white") {
+      this.figureElement.classList.add("white");
+      lootPlayer2.appendChild(this.figureElement);
+    }
+
+    // Przypisanie instancji lootFigure jako atrybut elementu <i>
+    this.figureElement.figure = this;
+
+    this.figureElement.addEventListener("click", function () {
+      console.log(this.figure, "this is <I>.figure");
+    });
+  };
+
+  removeFigure = function () {
+    this.figureElement.remove();
+    console.log(`removeFigure() method`, this.figureElement);
+  };
+}
+
+
+
+
+
 class Figure {
   constructor(type, place, color, fresh) {
     this.type = type;
@@ -56,8 +100,6 @@ class Figure {
 
     this.figureElement.addEventListener("click", function () {
       console.log(this.figure, "this is <I>.figure");
-
-      // nowa funkcja do szacha tutaj zeby sie wygodnie testowalo.. do wywalenia
     });
 
     // DRAG START
@@ -151,7 +193,7 @@ class Figure {
         // console.log(figureData, `figureData`);
       });
 
-      console.log(`Board after copied from method:`, boardContent);
+      console.log(`boardContent COPIED from method:`, boardContent);
     };
 
     Figure.prototype.pasteBoard = function () {
@@ -162,19 +204,23 @@ class Figure {
         }
       });
 
+      console.log(`pasteBoard: all figures removed`);
+
       // Remove any existing figures from the lootPlayer1
       lootPlayer1.childNodes.forEach((el) => {
         el.figure.removeFigure();
-        console.log(`LOOT REMOVED`);
+        console.log(`lootPlayer1 element REMOVED`, el.figure);
       });
+
+      console.log(`pasteBoard: all lootPlayer1 removed`);
 
       // Remove any existing figures from the lootPlayer2
       lootPlayer2.childNodes.forEach((el) => {
         el.figure.removeFigure();
-        console.log(`LOOT REMOVED`);
+        console.log(`lootPlayer2 element REMOVED`, el.figure);
       });
 
-      
+      console.log(`pasteBoard: all lootPlayer2 removed`);
 
       // Iterate over each figure in boardContent and create a new Figure object
       boardContent.figures.forEach((figureData) => {
@@ -182,13 +228,25 @@ class Figure {
         new Figure(type, place, color, fresh);
       });
 
+      console.log(`All Figures created`);
 
+      // Iterate over each figure in boardContent and create a new lootFigure object
+      boardContent.lootPlayer1.forEach((figureData) => {
+        const { type, place, color, fresh } = figureData;
+        new lootFigure(type, place, color, fresh);
+        console.log(`lootPlayer1 tried create figure`);
+      });
+      boardContent.lootPlayer2.forEach((figureData) => {
+        const { type, place, color, fresh } = figureData;
+        new lootFigure(type, place, color, fresh);
+        console.log(`lootPlayer2 tried create figure`);
+      });
 
+      // COS TU JEST NIE TAK!!!!!!!!! KIEDY PRZYBYWA WIECEJ ZBITYCH FIGUR TO GRA SIE WYSYPUJE!!!! CHYBA JAKIS BLAD W COPYBOARD //
+      // COS TU JEST NIE TAK!!!!!!!!! KIEDY PRZYBYWA WIECEJ ZBITYCH FIGUR TO GRA SIE WYSYPUJE!!!! CHYBA JAKIS BLAD W COPYBOARD //
+      // COS TU JEST NIE TAK!!!!!!!!! KIEDY PRZYBYWA WIECEJ ZBITYCH FIGUR TO GRA SIE WYSYPUJE!!!! CHYBA JAKIS BLAD W COPYBOARD //
 
-
-      // lootPlayer1.appendChild(new Figure(`rook`, undefined, `black`, true));
-
-      console.log(`boardContent !!pasted!! from method`, boardContent);
+      console.log(`boardContent PASTED from method`, boardContent);
 
       // Check after pasting board if some King was DOWN. If true then message Check Mate and end the game.
       const WhiteKingDown = !boardContent.figures.some(
@@ -201,8 +259,8 @@ class Figure {
       if (player.nr == 1 && WhiteKingDown) alert(`CHECK MATE! YOU LOOSE!!!`);
       if (player.nr == 2 && BlackKingDown) alert(`CHECK MATE! YOU LOOSE!!!`);
 
-      console.log(WhiteKingDown);
-      console.log(BlackKingDown);
+      // console.log(WhiteKingDown);
+      // console.log(BlackKingDown);
     };
 
     // ------------------------------------
