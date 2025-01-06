@@ -60,8 +60,6 @@ class Figure {
       // nowa funkcja do szacha tutaj zeby sie wygodnie testowalo.. do wywalenia
     });
 
-    
-
     // DRAG START
     this.figureElement.addEventListener("dragstart", function (event) {
       if (player.color === this.figure.color) {
@@ -84,7 +82,6 @@ class Figure {
 
     // BARTAS! CALA FUKNCJA RYSOWANIA RUCHU PRZECIWNIKA POWINNA BYC ZAKODOWANA RAZ I TYLKO JEDEN RAZ!!!!!!!!!!!!!!
     // A NIE ZE TY BEDZIESZ JA ROBIL OSOBNO DLA ZWYKLEGO RUCHU, ROSZADY I PROMOCJI!!!
-   
 
     Figure.prototype.beat = function (index) {
       const died = hexAll[index].firstChild.figure;
@@ -167,22 +164,17 @@ class Figure {
 
       // Remove any existing figures from the lootPlayer1
       lootPlayer1.childNodes.forEach((el) => {
-        if (lootPlayer1.firstChild) {
-          el.figure.removeFigure();
-          console.log(`LOOT REMOVED`);
-        }
+        el.figure.removeFigure();
+        console.log(`LOOT REMOVED`);
       });
 
       // Remove any existing figures from the lootPlayer2
       lootPlayer2.childNodes.forEach((el) => {
-        if (lootPlayer2.firstChild) {
-          el.figure.removeFigure();
-          console.log(`LOOT REMOVED`);
-        }
+        el.figure.removeFigure();
+        console.log(`LOOT REMOVED`);
       });
 
-
-
+      
 
       // Iterate over each figure in boardContent and create a new Figure object
       boardContent.figures.forEach((figureData) => {
@@ -191,14 +183,10 @@ class Figure {
       });
 
 
-      lootPlayer1.appendChild(new Figure(`rook`, undefined, `black`, true));
-
-   
 
 
 
-
-     
+      // lootPlayer1.appendChild(new Figure(`rook`, undefined, `black`, true));
 
       console.log(`boardContent !!pasted!! from method`, boardContent);
 
