@@ -66,13 +66,9 @@ class lootFigure {
 
   removeFigure = function () {
     this.figureElement.remove();
-    console.log(`removeFigure() method`, this.figureElement);
+    // console.log(`removeFigure() method`, this.figureElement.figure);
   };
 }
-
-
-
-
 
 class Figure {
   constructor(type, place, color, fresh) {
@@ -179,7 +175,6 @@ class Figure {
           fresh: el.figure.fresh,
         };
         boardContent.lootPlayer1.push(figureData);
-        // console.log(figureData, `figureData`);
       });
 
       lootPlayer2.childNodes.forEach((el) => {
@@ -190,7 +185,6 @@ class Figure {
           fresh: el.figure.fresh,
         };
         boardContent.lootPlayer2.push(figureData);
-        // console.log(figureData, `figureData`);
       });
 
       console.log(`boardContent COPIED from method:`, boardContent);
@@ -204,23 +198,21 @@ class Figure {
         }
       });
 
-      console.log(`pasteBoard: all figures removed`);
+      // console.log(`pasteBoard: all hexFigures removed`);
 
-      // Remove any existing figures from the lootPlayer1
-      lootPlayer1.childNodes.forEach((el) => {
+      while (lootPlayer1.firstChild) {
+        const el = lootPlayer1.firstChild;
         el.figure.removeFigure();
         console.log(`lootPlayer1 element REMOVED`, el.figure);
-      });
+      }
+      // console.log(`pasteBoard: all lootPlayer1 removed`);
 
-      console.log(`pasteBoard: all lootPlayer1 removed`);
-
-      // Remove any existing figures from the lootPlayer2
-      lootPlayer2.childNodes.forEach((el) => {
+      while (lootPlayer2.firstChild) {
+        const el = lootPlayer2.firstChild;
         el.figure.removeFigure();
         console.log(`lootPlayer2 element REMOVED`, el.figure);
-      });
-
-      console.log(`pasteBoard: all lootPlayer2 removed`);
+      }
+      // console.log(`pasteBoard: all lootPlayer2 removed`);
 
       // Iterate over each figure in boardContent and create a new Figure object
       boardContent.figures.forEach((figureData) => {
@@ -234,17 +226,13 @@ class Figure {
       boardContent.lootPlayer1.forEach((figureData) => {
         const { type, place, color, fresh } = figureData;
         new lootFigure(type, place, color, fresh);
-        console.log(`lootPlayer1 tried create figure`);
+        console.log(`lootPlayer1 tried create figure`, figureData);
       });
       boardContent.lootPlayer2.forEach((figureData) => {
         const { type, place, color, fresh } = figureData;
         new lootFigure(type, place, color, fresh);
-        console.log(`lootPlayer2 tried create figure`);
+        console.log(`lootPlayer2 tried create figure`, figureData);
       });
-
-      // COS TU JEST NIE TAK!!!!!!!!! KIEDY PRZYBYWA WIECEJ ZBITYCH FIGUR TO GRA SIE WYSYPUJE!!!! CHYBA JAKIS BLAD W COPYBOARD //
-      // COS TU JEST NIE TAK!!!!!!!!! KIEDY PRZYBYWA WIECEJ ZBITYCH FIGUR TO GRA SIE WYSYPUJE!!!! CHYBA JAKIS BLAD W COPYBOARD //
-      // COS TU JEST NIE TAK!!!!!!!!! KIEDY PRZYBYWA WIECEJ ZBITYCH FIGUR TO GRA SIE WYSYPUJE!!!! CHYBA JAKIS BLAD W COPYBOARD //
 
       console.log(`boardContent PASTED from method`, boardContent);
 
@@ -259,8 +247,6 @@ class Figure {
       if (player.nr == 1 && WhiteKingDown) alert(`CHECK MATE! YOU LOOSE!!!`);
       if (player.nr == 2 && BlackKingDown) alert(`CHECK MATE! YOU LOOSE!!!`);
 
-      // console.log(WhiteKingDown);
-      // console.log(BlackKingDown);
     };
 
     // ------------------------------------
